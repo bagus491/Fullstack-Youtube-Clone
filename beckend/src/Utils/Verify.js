@@ -23,6 +23,38 @@ const Validator = [
 ]
 
 
+//loginPages
+const CheckToken = (req,res) => {
+    try{
+        const token = req.cookies.token || req.headers.authorization
+        if(!token){
+           return res.status(401).json({msg : 'Not Authorization'})
+        }
+
+        jwt.verify(token,secret,async (err,decoded) => {
+            if(err){
+                return res.status(401).json({msg : 'Not Authorization'})
+            }
+
+            const decodedUser = decoded.username
+
+            const dataOk = await UserOne(decodedUser)
+            if(!dataOk){
+                return res.status(401).json({msg : 'Not Authorization'})
+            }
+
+            //validate decoded with data
+            if(decodedUser !== dataOk.username){
+                return res.status(401).json({msg : 'Not Authorization'})
+            }
+
+            res.status(200).json({msg : 'Success'})
+        })
+    }catch(error){
+        res.status(500).json({msg : 'Internal Server Error'})
+    }
+}
 
 
-module.exports = {Validator,jwt,secret}
+
+module.exports = {Validator,jwt,secret,CheckToken}
