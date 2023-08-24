@@ -57,7 +57,7 @@ export const RegisterCard = () => {
             </div>
         </div>
     </div>
-</div>
+    </div>
         </>
     )
 }
