@@ -90,7 +90,7 @@ const doLogin = (req,res) => {
     try{
         const {username} = req.body
 
-        jwt.sign({username},secret,(err,token) => {
+        jwt.sign({username},secret,{expiresIn: '1h'},(err,token) => {
             if(err){
                 return res.status(401).json({msg :'Not Authorization'})
             }

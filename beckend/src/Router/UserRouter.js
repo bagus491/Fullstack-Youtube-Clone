@@ -32,6 +32,12 @@ app.get('/dasbord/profile',CheckToken)
 app.get('/dasbord/setting',CheckToken)
 
 
+//logout
+app.get('/logout',(req,res) => {
+    res.clearCookie('token','')
+    res.status(203).json({msg : 'Success'})
+})
+
 //AuthLogin
 app.use(Auth)
 
