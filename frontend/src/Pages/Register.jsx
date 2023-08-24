@@ -1,10 +1,13 @@
-
-
+import { Container } from "react-bootstrap"
+import { RegisterCard } from "../Components/main-compo/RegisterCard"
+import '../Assets/scss/main.css'
 
 export const RegisterPage = () => {
     return(
         <>
-        <h1>Hello Register</h1>
+        <Container className="cnReg">
+            <RegisterCard />
+        </Container>
         </>
     )
 }

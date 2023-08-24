@@ -5,11 +5,13 @@ import {BsFillGrid3X2GapFill as ForButton ,BsCameraVideoFill as Logo, BsFillCaps
 } from 'react-icons/bs'
 
 import {Button,Form} from 'react-bootstrap'
+import {useNavigate} from 'react-router-dom'
 
 export const Navigation = () => {
     const {userInfo} = useContext(AuthContext)
     const [Check, setCheck] = useState(false)
     const [sidebar,setsidebar] = useState(false)
+    const Navigate = useNavigate()
     useEffect(() => {
         if(typeof userInfo !== 'undefined'){
             setCheck(true)
@@ -112,8 +114,8 @@ export const Navigation = () => {
                   : 
                 <div className="before-login">
                     <div className="last">
-                    <Button style={{marginRight: '5px', background: '#F2594B',border: 'none'}}>Login</Button>
-                    <Button>Create Account</Button>
+                    <Button style={{marginRight: '5px', background: '#F2594B',border: 'none'}} onClick={() => Navigate('/login')}>Login</Button>
+                    <Button onClick={() => Navigate('/register')}>Create Account</Button>
                     </div>
                 </div>
                }
