@@ -1,13 +1,14 @@
 {
   "name": "beckend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create File",
   "main": "Index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon Index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "baguskalam",
   "license": "ISC",
   "devDependencies": {
     "bcrypt": "^5.1.1",
