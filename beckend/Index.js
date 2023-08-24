@@ -18,9 +18,9 @@ app.use(morgan('dev'))
 //express-rate-limit
 const rateLimit = require('express-rate-limit')
 app.use(rateLimit({
-    windowMs: 10*60*1000,
-    max : 100,
-    message: 'You have Many Request'
+    windowMS: 10*60*1000, // 10 minutes
+    max : 100, // 100 request
+    message: {error: 'You Have Many Request'}
 }))
 
 //cors
@@ -29,6 +29,24 @@ app.use(cors({
     origin: true,
     credentials: true,
 }))
+
+//setup two middleware
+const cookieparser = require('cookie-parser')
+const session = require('express-session')
+app.use(cookieparser('secret'))
+app.use(session({
+    resave:true,
+    saveUninitialized: true,
+    cookie: {maxAge: 6000},
+    secret: 'secret'
+}))
+
+
+//database
+//mongo
+require('./src/Db/dbm')
+//mysql
+require('./src/Db/dbq')
 
 
 //usersRouter
