@@ -6,6 +6,7 @@ const sequelize = new Sequlize('cloneyt','baguskalam','1-uCkYsb]2yfqU2r',{
 
 
 
+
 sequelize.authenticate()
     .then(() => {
         console.log('Success Connect mysql')
