@@ -1,10 +1,10 @@
-
-
+import { Navigation } from "../Components/reusable/Navigation";
+import '../Assets/scss/main.css';
 
 export const HomeWeb = () => {
     return(
         <>
-        <h1>Hello Home</h1>
+           <Navigation />
         </>
     )
 }

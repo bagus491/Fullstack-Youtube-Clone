@@ -1,0 +1,274 @@
+
+@use '../mixin/Mixin' as m ;
+
+
+    .side-navbar{
+        width: 0px;
+        height: 100vh;
+        border-right: 1px solid #010326;
+        position: fixed;
+        overflow: hidden;
+        z-index: 1;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        transition: 0.4s;
+        & .logo {
+            display: flex;
+
+            & .Open {
+                flex: 15%;
+                padding: 10px;
+
+                & .button {
+                    @include m.forIcon(40px,40px);
+                }
+                & .button:hover {
+                    background: gray;
+                }
+            }
+
+            & .logo-tittle {
+                flex: 25%;
+
+                & .logo-btn {
+                    display: flex;
+                    background: none;
+                    border: none;
+                    margin-top: 10px;
+                    & .logo-pict {
+                        width: 50px;
+                        height: 30px;
+                        background: #337CCF;
+                        border-radius: 20px;
+                    }
+
+                    & .logo-text {
+                        margin-top: 2px;
+                        margin-left: 5px;
+                        font-size: 18px;
+                        color: #010326;
+                        font-weight: bold;
+                        font-family: cursive;
+                    }
+                }
+            }
+        }
+
+        & .beranda {
+            & .button {
+                @include m.forIcon(100%,40px);
+                display: flex;
+                color: black;
+
+            }
+            & .button:hover {
+                background: gray;
+            }
+        }
+    }
+
+    .side-navbar-active{
+        width: 200px;
+        height: 100vh;
+        border-right: 1px solid #010326;
+        position: fixed;
+        overflow: hidden;
+        z-index: 1;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        transition: 0.4s;
+        & .logo {
+            display: flex;
+
+            & .Open {
+                flex: 15%;
+                padding: 10px;
+
+                & .button {
+                    @include m.forIcon(40px,40px);
+                }
+                & .button:hover {
+                    background: gray;
+                }
+            }
+
+            & .logo-tittle {
+                flex: 25%;
+
+                & .logo-btn {
+                    display: flex;
+                    background: none;
+                    border: none;
+                    margin-top: 10px;
+                    & .logo-pict {
+                        width: 50px;
+                        height: 30px;
+                        background: #337CCF;
+                        border-radius: 20px;
+                    }
+
+                    & .logo-text {
+                        margin-top: 2px;
+                        margin-left: 5px;
+                        font-size: 18px;
+                        color: #010326;
+                        font-weight: bold;
+                        font-family: cursive;
+                    }
+                }
+            }
+        }
+
+        & .beranda {
+            & .button {
+                @include m.forIcon(100%,40px);
+                display: flex;
+                color: black;
+
+            }
+            & .button:hover {
+                background: gray;
+            }
+        }
+    }
+
+    //top   
+    .top-navbar {
+        // background: brown;
+        display: flex;
+        justify-content: space-around;
+
+        & .logo {
+            flex: 25%;
+            // background: brown;
+            padding: 10px;
+            display: flex;
+            & .Open {
+                flex: 25%;
+                // background: aqua;
+                padding: 10px;
+
+                & .button {
+                    @include m.forIcon(40px,40px);
+                }
+                & .button:hover {
+                    background: gray;
+                }
+            }
+
+            & .logo-tittle {
+                flex: 50%;
+                // background: red;
+                padding: 10px;
+
+                & .logo-btn {
+                    width: 140px;
+                    height: 40px;
+                    background: none;
+                    border: none;
+                    display: flex;
+                    // background: brown;
+                    cursor: pointer;
+                    & .logo-pict {
+                        width: 50px;
+                        height: 30px;
+                        background: #337CCF;
+                        border-radius: 20px;
+                    }
+
+                    & .logo-text {
+                        margin-top: 2px;
+                        margin-left: 5px;
+                        font-size: 18px;
+                        color: #010326;
+                        font-weight: bold;
+                        font-family: cursive;
+                    }
+                }
+            }
+        }
+
+        & .search {
+            flex: 50%;
+            // background: aqua;
+            padding: 10px;
+            
+        }
+
+        & .before-login {
+            flex: 25%;
+            // background: brown;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            & .last {
+                margin-top: 10px;
+            }
+        }
+
+        & .after-login {
+            flex: 25%;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            & .last {
+                margin-top: 5px;
+
+                & .last-upload {
+                    @include m.forIcon(40px,40px);
+                    color: black;
+                    margin-right: 5px;
+                }
+
+                & .last-upload:hover {
+                    background: gray;
+                }
+
+                & .last-Notif {
+                    @include m.forIcon(40px,40px);
+                    color: black;
+                    margin-right: 5px;
+                }
+
+                & .last-Notif:hover {
+                    background: gray;
+                }
+
+                & .last-Profile {
+                    @include m.forIcon(40px,40px);
+                    color: black;
+                    margin-right: 5px;
+                }
+
+                & .last-Profile:hover {
+                    background: gray;
+                }
+
+            }
+        }
+    }
+
+
+.search-side {
+    display: none;
+}
+
+@media screen and (max-width: 576px){
+    .search {
+        display: none;
+    }
+    .search-side {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .search {
+        display: none;
+    }
+    .search-side {
+        display: flex;
+    }
+}
