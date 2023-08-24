@@ -1,7 +1,7 @@
 //first settup
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 
 
 
@@ -31,12 +31,18 @@ app.use(cors({
 }))
 
 
+//usersRouter
+const UserRouter = require('./src/Router/UserRouter');
+
+app.use(UserRouter);
 
 
 
 
 
-
+app.use('/',(req,res) => {
+    res.status(404).send('404 NOT FOUND')
+})
 
 //first setup
 app.listen(port,() => {
