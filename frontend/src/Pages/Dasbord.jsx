@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../AuthContext"
 import { useNavigate } from "react-router-dom"
-import {Spinner} from 'react-bootstrap';
+import {Container, Spinner} from 'react-bootstrap';
 
 import { CheckDasbord } from "../utils/UserFetch";
 import { Navigation } from "../Components/reusable/Navigation";
@@ -10,8 +10,12 @@ export const DasbordPage = () => {
     const {userInfo,handleInfo} = useContext(AuthContext)
     const Navigate = useNavigate()
     const [Check, setCheck] = useState(false)
+    const [getSpinner ,setgetSpinner] = useState(false)
 
     useEffect(() => {
+        setTimeout(() => {
+            setgetSpinner(true)
+        },1000)
         if(!userInfo){
             Navigate('/login')
         }else {
@@ -35,14 +39,22 @@ export const DasbordPage = () => {
     return(
         <>
         {
-            Check ?  
+            getSpinner ?  
             <div>
-                <Navigation cheked={Check}/>
+                {
+                    Check ?    
+                    <div>
+                    <Navigation cheked={Check}/>
+                    </div>
+                    :
+                    <div><h1>ANDA TIDAK PUNYA AKSES</h1></div>
+                }
             </div>
-            : 
-             <div> <Spinner animation="grow" variant="info" /></div>
+            :
+            <Container style={{display: 'flex', height: '50vh', justifyContent: 'center',alignItems: 'flex-end'}}>
+            <Spinner animation="grow" variant="info" />
+            </Container> 
         }
-       
         </>
     )
 }
