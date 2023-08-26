@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../../AuthContext"
+import { useEffect, useState } from "react"
+
 import {BsFillGrid3X2GapFill as ForButton ,BsCameraVideoFill as Logo, BsFillCapslockFill as Upload , BsFillChatDotsFill as Notif , BsFillPersonFill as Profile
 ,BsHouseDoor as Beranda
 } from 'react-icons/bs'
@@ -7,16 +7,18 @@ import {BsFillGrid3X2GapFill as ForButton ,BsCameraVideoFill as Logo, BsFillCaps
 import {Button,Form} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom'
 
-export const Navigation = () => {
-    const {userInfo} = useContext(AuthContext)
+export const Navigation = ({cheked}) => {
     const [Check, setCheck] = useState(false)
     const [sidebar,setsidebar] = useState(false)
     const Navigate = useNavigate()
+    const CheckNavbar = cheked
     useEffect(() => {
-        if(typeof userInfo !== 'undefined'){
+        if(CheckNavbar){
             setCheck(true)
+        }else {
+          setCheck(false)
         }
-    },[userInfo])
+    },[CheckNavbar])
 
 
     const getSidebar = () => {

@@ -17,24 +17,15 @@ app.get('/login',CheckToken)
 
 
 //dasbord page
-app.get('/dasbord',CheckToken)
+app.get('/dasbord/auth',CheckToken)
 
 
-//dasbord-Uplaod pages
-app.get('/dasbord/upload',CheckToken)
 
-
-//dasbord-profile pages
-app.get('/dasbord/profile',CheckToken)
-
-
-//dasbord-setting pages
-app.get('/dasbord/setting',CheckToken)
 
 
 //logout
 app.get('/logout',(req,res) => {
-    res.clearCookie('token','')
+    res.clearCookie('token')
     res.status(203).json({msg : 'Success'})
 })
 

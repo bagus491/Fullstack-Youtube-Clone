@@ -60,7 +60,7 @@ const doRegister = async (req,res) => {
     try{
        const error = validationResult(req)
        if(!error.isEmpty()){
-        return res.send(error.array())
+        return res.status(203).send(error.array())
        }
        
        //req.body
@@ -95,9 +95,9 @@ const doLogin = (req,res) => {
                 return res.status(401).json({msg :'Not Authorization'})
             }
 
-            res.cookie('token',token,{httpOnly:true})
+            res.cookie('token',token,{httpOnly: true})
             
-            res.status(200).json({msg: 'success', token})
+            res.status(200).json({msg: 'success Login',token})
         })
     }catch(error){
         res.status(500).json({msg : 'Internal Server Error'})
