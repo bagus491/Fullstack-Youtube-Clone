@@ -4,6 +4,9 @@ const {check} = require('express-validator')
 //users
 const {UserOne} = require('../Utils/FlowDbq')
 
+//profile
+const {getProfile} = require('../Utils/FlowDbm')
+
 //token
 const jwt = require('jsonwebtoken')
 const secret = '!@#$%^&*()_+-=93}{|<>'
@@ -56,5 +59,15 @@ const CheckToken = (req,res) => {
 }
 
 
+//profile
+const CheckPrName = [check('PrName').custom(async (value) => {
+    const duplikat = await getProfile({PrName: value})
+    if(duplikat){
+        throw new Error('Profile Name Exist')
+    }else{
+        return true;
+    }
+})]
 
-module.exports = {Validator,jwt,secret,CheckToken}
+
+module.exports = {Validator,jwt,secret,CheckToken,CheckPrName}

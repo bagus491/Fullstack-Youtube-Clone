@@ -1,0 +1,86 @@
+//profiles models
+const Profile = require('../Models/Profiles')
+
+//model Subscrice
+const DataSubs = require('../Models/DataSubs')
+
+//addProfile
+const addProfile = (username,PrName,Subs,Desc,file) => {
+    return new Profile({
+        username,
+        PrName,
+        Subs,
+        Desc,
+        ImgName: file.filename,
+        ImgFile: file.buffer,
+        ImgType: file.mimetype
+    })
+}
+
+
+//getOneProfile
+const getProfile = async (PrName) => {
+    return await Profile.findOne({PrName})
+}
+
+//getOneProfilebyname
+const getOneProfilebyname = async (username) => {
+    return await Profile.findOne({username})
+}
+
+//deleteProfile
+const deleteProfile = async (username) => {
+    return await Profile.deleteOne({username})
+}
+
+//updateProfile
+const updateProfile = async(_id,username,PrName,Subs,Desc) => {
+    return await Profile.updateOne(
+        {
+            _id:id
+        },
+        {
+            $set: {
+                username,
+                PrName,
+                Subs,
+                Desc,
+            }
+        }
+    )
+}
+
+//sub
+const updateSub = async(PrName,Subs) => {
+    return await Profile.updateOne(
+        {
+            PrName : PrName
+        },{
+            $set: {
+                Subs,
+            }
+        }
+    )
+}
+
+
+// addsubscribe
+const addSubs = async(Subscribe,Subscriber) => {
+    return new DataSubs({
+        Subscribe,
+        Subscriber
+    })
+}
+
+//findOne
+const getSubs = async() => {
+    return await DataSubs.find()
+}
+
+//delete
+const delSubs = async(Subscriber) => {
+    return await DataSubs.deleteOne({Subscriber})
+}
+
+
+module.exports = {addProfile,getProfile,deleteProfile,updateProfile,updateSub,getOneProfilebyname,addSubs,getSubs,delSubs}
