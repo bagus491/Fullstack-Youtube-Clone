@@ -79,7 +79,7 @@ const ProfileGet = async (req,res) => {
 
             const ProfileOk = await getProfile(req.params.PrName)
             if(!ProfileOk){
-                return res.status(401).json({msg : 'Not Authorization'})
+                return res.status(203).json({msg : 'Not Authorization'})
             }
 
             const {_id,PrName,Subs,Desc,ImageFile,ImageType} = ProfileOk
@@ -124,7 +124,7 @@ const doDeleteProfile = async(req,res) => {
             //profile
             const ProfileOk = await getOneProfilebyname(decodedUser)
             if(!ProfileOk){
-                return res.status(401).json({msg : 'Not Authorization'})
+                return res.status(203).json({msg : 'Not Authorization'})
             }
 
             const Delete = await deleteProfile(decodedUser)
@@ -162,7 +162,7 @@ const doUpdateProfile = async(req,res) => {
                  //profile
                  const ProfileOk = await getOneProfilebyname(decodedUser)
                  if(!ProfileOk){
-                     return res.status(401).json({msg : 'Not Authorization'})
+                     return res.status(203).json({msg : 'Not Authorization'})
                  }
 
                  const error = validationResult(req)
@@ -231,7 +231,7 @@ const doSubs = async(req,res) => {
             //profileOk
             const ProfileOk = await getProfile(req.params.PrName)
             if(!ProfileOk){
-                return res.status(401).json({msg : 'Not Authorization'})
+                return res.status(203).json({msg : 'Not Authorization'})
             }
 
             if(ProfileOk.username != decodedUser){
@@ -288,7 +288,7 @@ const CheckSubs = async(req,res) => {
             //profileOk
             const ProfileOk = await getProfile(req.params.PrName)
             if(!ProfileOk){
-                return res.status(401).json({msg : 'Not Authorization'})
+                return res.status(203).json({msg : 'Not Authorization'})
             }
 
             if(ProfileOk.username != decodedUser){
@@ -326,7 +326,7 @@ const doUnSubs = async(req,res) => {
             //profileOk
             const ProfileOk = await getProfile(req.params.PrName)
             if(!ProfileOk){
-                return res.status(401).json({msg : 'Not Authorization'})
+                return res.status(203).json({msg : 'Not Authorization'})
             }
 
             if(ProfileOk.username != decodedUser){
