@@ -223,6 +223,24 @@
 .top-navbar .after-login .last .last-Notif:hover {
   background: gray;
 }
+.top-navbar .after-login .last .notif-box {
+  width: 0px;
+  height: 300px;
+  border: 1px solid #010326;
+  position: fixed;
+  transform: translateX(-35%);
+  border-radius: 20px;
+  display: none;
+}
+.top-navbar .after-login .last .notif-box-active {
+  width: 200px;
+  height: 300px;
+  border: 1px solid #010326;
+  position: fixed;
+  transform: translateX(-35%);
+  border-radius: 20px;
+  display: flex;
+}
 .top-navbar .after-login .last .last-Profile {
   width: 40px;
   height: 40px;
@@ -235,12 +253,61 @@
 .top-navbar .after-login .last .last-Profile:hover {
   background: gray;
 }
+.top-navbar .after-login .last .profile-box {
+  width: 0px;
+  height: 300px;
+  border: 1px solid #010326;
+  position: fixed;
+  transform: translateX(-35%);
+  border-radius: 20px;
+  display: none;
+}
+.top-navbar .after-login .last .profile-box-active {
+  width: 200px;
+  height: 300px;
+  border: 1px solid #010326;
+  position: fixed;
+  transform: translateX(-35%);
+  border-radius: 20px;
+  transition: 1s;
+  display: flex;
+  overflow: hidden;
+}
+.top-navbar .after-login .last .profile-box-active .profile-box-list {
+  width: 100%;
+}
+.top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .name {
+  flex: 50%;
+  padding: 20px;
+  text-align: center;
+}
+.top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .list {
+  flex: 100%;
+  padding: 20px;
+}
+.top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .list .button {
+  width: 100%;
+  background: #F2594B;
+  border: none;
+  margin-top: 15px;
+}
+.top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .list .button:hover {
+  background: #010326;
+  transition: 1s;
+}
 
 .search-side {
   display: none;
 }
 
 @media screen and (max-width: 576px) {
+  .top-navbar .logo .logo-tittle {
+    display: none;
+  }
   .search {
     display: none;
   }

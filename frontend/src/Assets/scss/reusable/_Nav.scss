@@ -236,6 +236,26 @@
                     background: gray;
                 }
 
+                & .notif-box {
+                    width: 0px;
+                    height: 300px;
+                    border: 1px solid #010326;
+                    position: fixed;
+                    transform: translateX(-35%);
+                    border-radius: 20px;
+                    display: none;
+                }
+
+                & .notif-box-active {
+                    width: 200px;
+                    height: 300px;
+                    border: 1px solid #010326;
+                    position: fixed;
+                    transform: translateX(-35%);
+                    border-radius: 20px;
+                    display: flex;
+                }
+
                 & .last-Profile {
                     @include m.forIcon(40px,40px);
                     color: black;
@@ -244,6 +264,60 @@
 
                 & .last-Profile:hover {
                     background: gray;
+                }
+
+                & .profile-box {
+                    width: 0px;
+                    height: 300px;
+                    border: 1px solid #010326;
+                    position: fixed;
+                    transform: translateX(-35%);
+                    border-radius: 20px;
+                    display: none;
+                }
+
+                & .profile-box-active {
+                    width: 200px;
+                    height: 300px;
+                    border: 1px solid #010326;
+                    position: fixed;
+                    transform: translateX(-35%);
+                    border-radius: 20px;
+                    transition: 1s;
+                    display: flex;
+                    overflow: hidden;
+                    & .profile-box-list {
+                        width: 100%;
+
+                        & .profile-box-flex {
+                            display: flex;
+                            flex-wrap: wrap;
+                            & .name {
+                                flex: 50%;
+                                padding: 20px;
+                                text-align: center;
+                            }
+
+                            & .list {
+                                flex: 100%;
+                                padding: 20px;
+
+                                & .button {
+                                    width: 100%;
+                                    background: #F2594B;
+                                    border: none;
+                                    margin-top: 15px;
+                                }
+
+                                & .button:hover {
+                                    background: #010326;
+                                    transition: 1s;
+                                }
+                            }
+                        }
+                    }
+
+
                 }
 
             }
@@ -256,6 +330,13 @@
 }
 
 @media screen and (max-width: 576px){
+    .top-navbar {
+        & .logo {
+            & .logo-tittle {
+                display: none;
+            }
+        }
+    }
     .search {
         display: none;
     }

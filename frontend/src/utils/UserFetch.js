@@ -66,3 +66,17 @@ export const CheckDasbord = async () => {
     }
 }
 
+
+
+//doLogout 
+export const doLogout = async () => {
+    try{
+        const respone = await fetch('http://localhost:5000/logout',{
+            method:'GET',
+            credentials: 'include'
+        })
+        return respone
+    }catch(error){
+        console.error(error)
+    }
+}

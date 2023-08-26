@@ -6,10 +6,15 @@ import {BsFillGrid3X2GapFill as ForButton ,BsCameraVideoFill as Logo, BsFillCaps
 
 import {Button,Form} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom'
+import {Container,Spinner} from 'react-bootstrap'
+import { doLogout } from "../../utils/UserFetch"
 
 export const Navigation = ({cheked}) => {
     const [Check, setCheck] = useState(false)
     const [sidebar,setsidebar] = useState(false)
+    const [openProfile, setopenProfile] = useState(false)
+    const [openNotif,setopenNotif] = useState(false)
+    const [SpinnerP , setSpinnerP] = useState(false)
     const Navigate = useNavigate()
     const CheckNavbar = cheked
     useEffect(() => {
@@ -29,6 +34,48 @@ export const Navigation = ({cheked}) => {
        }
     }
 
+    const handleOpen = () => {
+      if(openProfile === false){
+        setopenProfile(true)
+        setopenNotif(false)
+        setTimeout(() => {
+          setSpinnerP(true)
+        },2000)
+      }else{
+        setopenProfile(false)
+        setSpinnerP(false)
+      }
+    }
+
+    const handleNotif  = () => {
+      if(openNotif === false){
+        setopenNotif(true)
+        setopenProfile(false)
+        setTimeout(() => {
+          setSpinnerP(true)
+        },2000)
+      }else{
+        setopenNotif(false)
+        setSpinnerP(false)
+      }
+    }
+
+    //handleLogout
+    const handleLogout = async () => {
+      try{
+        const respone = await doLogout()
+        if(!respone.ok){
+          Navigate('/login')
+        }
+
+        const json = await respone.json()
+        alert(json.msg)
+        Navigate('/login')
+      }catch(error){
+        console.error(error)
+      }
+    }
+
     return(
         <>
             <div className={sidebar ? 'side-navbar-active'  :  'side-navbar'}>
@@ -37,7 +84,9 @@ export const Navigation = ({cheked}) => {
                     <Button className="button" onClick={() => getSidebar()}><ForButton style={{color: 'black'}}/></Button>
             </div>
                 <div className="logo-tittle">
-                    <Button className="logo-btn">
+                {
+                    Check  ?     
+                    <Button className="logo-btn"  onClick={() => Navigate('/dasbord')}>
                     <div className="logo-pict">
                       <Logo />
                     </div>
@@ -45,16 +94,34 @@ export const Navigation = ({cheked}) => {
                        <p>YouDo</p>
                     </div>
                     </Button>
+                    :
+                    <Button className="logo-btn"  onClick={() => Navigate('/')}>
+                    <div className="logo-pict">
+                      <Logo />
+                    </div>
+                    <div className="logo-text">
+                       <p>YouDo</p>
+                    </div>
+                    </Button>
+                  }
                     
                 </div>
             </div>
 
             {/* beranda */}
             <div className="beranda">
-                <Button className="button">
+              {
+                Check  ?   
+                <Button className="button" onClick={() => Navigate('/dasbord')}>
                 <Beranda style={{width: '30px',height: '20px'}}/>
                 <h6 style={{marginLeft: '20px'}}>Beranda</h6>
                 </Button>
+                :
+                <Button className="button" onClick={() => Navigate('/')}>
+                <Beranda style={{width: '30px',height: '20px'}}/>
+                <h6 style={{marginLeft: '20px'}}>Beranda</h6>
+                </Button>
+              }
             </div>
 
             {/* search */}
@@ -80,7 +147,9 @@ export const Navigation = ({cheked}) => {
                     <Button className="button" onClick={() => getSidebar()}><ForButton style={{color: 'black'}}/></Button>
                 </div>
                 <div className="logo-tittle">
-                    <Button className="logo-btn">
+                  {
+                    Check  ?     
+                    <Button className="logo-btn"  onClick={() => Navigate('/dasbord')}>
                     <div className="logo-pict">
                       <Logo />
                     </div>
@@ -88,6 +157,17 @@ export const Navigation = ({cheked}) => {
                        <p>YouDo</p>
                     </div>
                     </Button>
+                    :
+                    <Button className="logo-btn"  onClick={() => Navigate('/')}>
+                    <div className="logo-pict">
+                      <Logo />
+                    </div>
+                    <div className="logo-text">
+                       <p>YouDo</p>
+                    </div>
+                    </Button>
+                  }
+                  
                     
                 </div>
                </div>
@@ -108,9 +188,44 @@ export const Navigation = ({cheked}) => {
                 Check ?
                  <div className="after-login">
                     <div className="last">
-                        <Button  className="last-upload"><Upload/></Button>
-                        <Button  className="last-Notif"><Notif /></Button>
-                        <Button className="last-Profile"><Profile /></Button>
+                        <Button  className="last-upload" onClick={() => Navigate('/dasbord/upload')}><Upload/></Button>
+                        <Button  className="last-Notif" onClick={() => handleNotif()}><Notif /></Button>
+
+                        <div className={openNotif ? "notif-box-active" : "notif-box"  }>
+                          {
+                            SpinnerP ?     
+                            <div>
+                              <h1>Notif</h1>
+                            </div>
+                            :
+                            <Container style={{display: 'flex', height: '20vh', justifyContent: 'center',alignItems: 'flex-end'}}>
+                            <Spinner animation="grow" variant="info" />
+                            </Container>
+                          }
+                        </div>
+
+                        <Button className="last-Profile" onClick={() => handleOpen()}><Profile /></Button>
+                        <div className={openProfile ? 'profile-box-active'  :'profile-box ' }>
+                          {
+                            SpinnerP ?     
+                            <div className="profile-box-list">
+                              <div className="profile-box-flex">
+                              <div className="name">
+
+                              </div>
+                              <div className="list">
+                              <Button className="button" onClick={() => Navigate('/dasbord/profile')}>Profile</Button>
+                              <Button className="button" onClick={() => Navigate('/dasbord/setting')}>Setting</Button>
+                              <Button className="button" onClick={() => handleLogout()}>Logout</Button>
+                              </div>
+                              </div>
+                            </div>
+                            :
+                            <Container style={{display: 'flex', height: '20vh', justifyContent: 'center',alignItems: 'flex-end'}}>
+                            <Spinner animation="grow" variant="info" />
+                            </Container>
+                          }
+                        </div>
                     </div>
                  </div>
                   : 
