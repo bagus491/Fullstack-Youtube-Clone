@@ -3,7 +3,20 @@
 //GetProfile
 export const GetProfile = async(PrName) => {
     try{
-        const respone = await fetch(`http://localhost:5000/${PrName}`,{
+        const respone = await fetch(`http://localhost:5000/profile/${PrName}`,{
+            method: 'GET',
+            credentials: 'include'
+        })
+        return respone
+    }catch(error){
+        console.error(error)
+    }
+}
+
+//checkProfile
+export const CheckProfile = async() => {
+    try{
+        const respone = await fetch(`http://localhost:5000/dasbord/checkProfile`,{
             method: 'GET',
             credentials: 'include'
         })
@@ -20,7 +33,7 @@ export const AddProfile = async (PrName,Desc,Profile) =>{
                 formData.append('PrName',PrName)
                 formData.append('Desc',Desc)
                 formData.append('Profile',Profile[0])
-        const respone = await fetch('http://localhost:5000/dasbord/upload',{
+        const respone = await fetch('http://localhost:5000/dasbord/profile',{
             method: 'post',
             body: formData,
             credentials: 'include'
@@ -65,7 +78,7 @@ export const doDeleteProfile = async() => {
 //checksub
 export const CheckSub = async(PrName) => {
     try{
-        const respone = await fetch(`http://localhost:5000/dasbord/checksub/${PrName}`,{
+        const respone = await fetch(`http://localhost:5000/checksub/${PrName}`,{
             method :'GET',
             credentials:'include'
         })
@@ -78,7 +91,7 @@ export const CheckSub = async(PrName) => {
 //checksub
 export const doSub = async(PrName) => {
     try{
-        const respone = await fetch(`http://localhost:5000/dasbord/sub/${PrName}`,{
+        const respone = await fetch(`http://localhost:5000/sub/${PrName}`,{
             method :'GET',
             credentials:'include'
         })
@@ -91,7 +104,7 @@ export const doSub = async(PrName) => {
 //checksub
 export const doUnSub = async(PrName) => {
     try{
-        const respone = await fetch(`http://localhost:5000/dasbord/unsub/${PrName}`,{
+        const respone = await fetch(`http://localhost:5000/unsub/${PrName}`,{
             method :'GET',
             credentials:'include'
         })

@@ -5,7 +5,7 @@ const {check} = require('express-validator')
 const {UserOne} = require('../Utils/FlowDbq')
 
 //profile
-const {getProfile} = require('../Utils/FlowDbm')
+const {getProfile,getOneProfilebyname} = require('../Utils/FlowDbm')
 
 //token
 const jwt = require('jsonwebtoken')
@@ -50,7 +50,6 @@ const CheckToken = (req,res) => {
             if(decodedUser !== dataOk.username){
                 return res.status(401).json({msg : 'Not Authorization'})
             }
-
             res.status(200).json({msg : 'Success'})
         })
     }catch(error){
@@ -61,7 +60,7 @@ const CheckToken = (req,res) => {
 
 //profile
 const CheckPrName = [check('PrName').custom(async (value) => {
-    const duplikat = await getProfile({PrName: value})
+    const duplikat = await getProfile(value)
     if(duplikat){
         throw new Error('Profile Name Exist')
     }else{

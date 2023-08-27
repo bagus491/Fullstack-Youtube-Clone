@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Container,Spinner } from "react-bootstrap"
 import { CheckDasbord } from "../utils/UserFetch"
 import { Navigation } from "../Components/reusable/Navigation"
-
+import { CheckProfile } from "../utils/ProfileFetch"
 
 export const UploadPage = () => {
     const {userInfo} = useContext(AuthContext)
@@ -29,6 +29,23 @@ export const UploadPage = () => {
 
                 if(respone.status === 200){
                     setCheck(true)
+                    const FetchProfile = async() => {
+                        try{
+                          const respone = await CheckProfile()
+                          if(!respone.ok){
+                            Navigate('*')
+                          }
+              
+                          if(respone.status === 203){
+                            Navigate('/dasbord')
+                            return false
+                          }
+                          
+                        }catch(error){
+                          console.error(error)
+                        }
+                      }
+                      FetchProfile()
                 }
             }catch(error){
                 console.error(error)

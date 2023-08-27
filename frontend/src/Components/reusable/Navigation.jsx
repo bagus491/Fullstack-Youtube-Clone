@@ -9,12 +9,15 @@ import {useNavigate} from 'react-router-dom'
 import {Container,Spinner} from 'react-bootstrap'
 import { doLogout } from "../../utils/UserFetch"
 
+import { CheckProfile } from "../../utils/ProfileFetch"
+
 export const Navigation = ({cheked}) => {
     const [Check, setCheck] = useState(false)
     const [sidebar,setsidebar] = useState(false)
     const [openProfile, setopenProfile] = useState(false)
     const [openNotif,setopenNotif] = useState(false)
     const [SpinnerP , setSpinnerP] = useState(false)
+    const [dataProfile, setdataProfile] = useState()
     const Navigate = useNavigate()
     const CheckNavbar = cheked
     useEffect(() => {
@@ -23,6 +26,26 @@ export const Navigation = ({cheked}) => {
         }else {
           setCheck(false)
         }
+
+        const FetchProfile = async() => {
+          try{
+            const respone = await CheckProfile()
+            if(!respone.ok){
+              Navigate('*')
+            }
+
+            if(respone.status === 203){
+              setdataProfile(false)
+              return false
+            }
+
+            const json = await respone.json()
+            setdataProfile(json.Data)
+          }catch(error){
+            console.error(error)
+          }
+        }
+        FetchProfile()
     },[CheckNavbar])
 
 

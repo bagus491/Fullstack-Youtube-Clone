@@ -545,4 +545,10 @@
 
 .contant_box_404 {
   margin-top: -50px;
+}
+
+.Profile {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
 }/*# sourceMappingURL=main.css.map */

@@ -1,6 +1,6 @@
 //import
 const {addProfile,getProfile,deleteProfile,updateProfile,updateSub,
-addSubs,getSubs,delSubs
+addSubs,getSubs,delSubs, getOneProfilebyname
 } = require('../Utils/FlowDbm')
 
 //jwt
@@ -34,11 +34,13 @@ const doAddProfile = async (req,res) => {
                 return res.status(401).json({msg : 'Not Authorization'})
             }
 
+            //error di sini
             const error = validationResult(req)
               if(!error.isEmpty()){
             return res.status(203).send(error.array())
             }
-
+            
+        
             const Subs = "0";
             const {PrName,Desc} = req.body
 
@@ -58,7 +60,32 @@ const doAddProfile = async (req,res) => {
 
 
 //getProfile
+//by PrName
 const ProfileGet = async (req,res) => {
+    try{
+        const ProfileOk = await getProfile(req.params.PrName)
+        if(!ProfileOk){
+            return res.status(203).json({msg : 'Not Authorization'})
+        }
+
+        const {_id,PrName,Subs,Desc,ImageFile,ImageType} = ProfileOk
+
+        //decodedImage
+        const ImageData = ImageFile.toString('base64');
+        //imagePath
+        const ImagePath = `data:${ImageType};base64,${ImageData}`;
+
+        //newObject
+        const Data = [_id,PrName,Subs,Desc,ImagePath];
+
+        res.status(200).json({msg : 'Success',Data})
+    }catch(error){
+        res.status(500).json({msg : 'Internal Server Error'})
+    }
+}
+
+//checkProfile
+const CheckProfile = async (req,res) => {
     try{
         const token = req.cookies.token || req.headers.authorization
         if(!token){
@@ -77,7 +104,7 @@ const ProfileGet = async (req,res) => {
                 return res.status(401).json({msg : 'Not Authorization'})
             }
 
-            const ProfileOk = await getProfile(req.params.PrName)
+            const ProfileOk = await getOneProfilebyname(decodedUser)
             if(!ProfileOk){
                 return res.status(203).json({msg : 'Not Authorization'})
             }
@@ -381,4 +408,4 @@ const doUnSubs = async(req,res) => {
     }
 }
 
-module.exports = {doAddProfile,ProfileGet,doDeleteProfile,doUpdateProfile,doSubs,CheckSubs,doUnSubs}
+module.exports = {doAddProfile,ProfileGet,doDeleteProfile,doUpdateProfile,doSubs,CheckSubs,doUnSubs,CheckProfile}
