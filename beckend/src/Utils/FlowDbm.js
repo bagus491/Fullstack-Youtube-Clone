@@ -83,4 +83,59 @@ const delSubs = async(Subscriber) => {
 }
 
 
-module.exports = {addProfile,getProfile,deleteProfile,updateProfile,updateSub,getOneProfilebyname,addSubs,getSubs,delSubs}
+//videos
+//videos model
+const Videos = require('../Models/Videos')
+
+
+
+//add video
+
+const addVideo = (username,Title,Views,Date,Desc,Vd,Img) => {
+    return new Videos({
+        username,
+        Title,
+        Views,
+        Date,
+        Desc,
+        VdName: Vd.filename,
+        VdFile: Vd.buffer,
+        VdType: Vd.mimetype,
+        ImgName: Img.filename,
+        ImgFile: Img.buffer,
+        ImgType: Img.mimetype
+    })
+}
+
+//GETaLL VIDEOS
+
+const VideosData = async () =>{
+    return await Videos.find()
+} 
+
+//getOneByNameiD
+const VideosById = async(id) => {
+    return await Videos.findOne({_id: id})
+}
+
+//deleteVideo
+const VideosDelete = async(id) => {
+    return await Videos.deleteOne({_id:id})
+}
+
+//updateViews
+const VideoUpdateView = async(id,Views) => {
+    return await Videos.updateOne(
+        {
+            _id: id
+        },
+        {
+            $set: {
+                Views
+            }
+        }
+    )
+}
+
+module.exports = {addProfile,getProfile,deleteProfile,updateProfile,updateSub,getOneProfilebyname,addSubs,getSubs,delSubs,
+addVideo,VideosData,VideosById,VideosDelete,VideoUpdateView}

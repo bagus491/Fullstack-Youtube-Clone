@@ -9,6 +9,10 @@ const {HomeWeb} = require('../Controllers/UserController')
 //profile
 const {doAddProfile,ProfileGet,doDeleteProfile,doUpdateProfile,doSubs,CheckSubs,doUnSubs} = require('../Controllers/ProfileController')
 
+//videos
+const {doAddVideo,getVideos,getVideoUpload,watchVideo,doDeleteVideo} = require('../Controllers/VideoController')
+
+
 //verify
 const {CheckToken,CheckPrName} = require('../Utils/Verify')
 
@@ -38,6 +42,17 @@ app.post('/dasbord/profile',CheckPrName,Upload.single('Profile'),doAddProfile)
 app.put('/dasbord/profile',CheckPrName,doUpdateProfile)
 //deleteProfile
 app.delete('/dasbord/profile',doDeleteProfile)
+
+//videos
+app.get('/videos',getVideos)
+//videosDasbord
+app.get('/dasbord/videos/:PrName',getVideoUpload)
+//post
+app.post('/dasbord/upload',Upload.fields([{name: 'Video'},{name:'Poster'}]),doAddVideo)
+//watch
+app.get('/watch/:PrName/:id',watchVideo)
+//delete video
+app.delete('/dasbord/videos/:id',doDeleteVideo)
 
 
 //checksubs

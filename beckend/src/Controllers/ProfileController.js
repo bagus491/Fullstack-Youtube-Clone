@@ -292,7 +292,21 @@ const CheckSubs = async(req,res) => {
             }
 
             if(ProfileOk.username != decodedUser){
-                return res.status(203).json({msg : 'Not Subs'})
+                //checkSubs
+                   //array subscribe
+                   const arraySubs = await getSubs()
+
+                   //filter
+                   const FiltSubs = arraySubs.filter((e) => e.Subscribe.toLowerCase() == decodedUser.toLowerCase())
+                   if(!FiltSubs || FiltSubs.length < 0){
+                    return res.status(203).json({msg : 'Not Subs'})
+                   }
+                   
+                   //find
+                   const FindSubs = FiltSubs.find((e) => e.Subscriber == req.params.PrName)
+                   if(!FindSubs){
+                       return res.status(203).json({msg : 'Not Subs'})
+                   }
             }
 
              res.status(200).json({msg : 'Success'})
@@ -348,7 +362,7 @@ const doUnSubs = async(req,res) => {
                 const arraySubs = await getSubs()
 
                 //filter
-                const FiltSubs = arraySubs.filter((e) => e. Subscribe.toLowerCase() == decodedUser.toLowerCase())
+                const FiltSubs = arraySubs.filter((e) => e.Subscribe.toLowerCase() == decodedUser.toLowerCase())
 
                 //find
                 const FindSubs = FiltSubs.find((e) => e.Subscriber == req.params.PrName)
