@@ -37,11 +37,13 @@ app.get('/dasbord/auth',CheckToken)
 //profile-flow
 app.get('/profile/:PrName',ProfileGet)
 //addprofile
-app.post('/dasbord/profile',CheckPrName,Upload.single('Profile'),doAddProfile)
+//error selanjutnya (2)
+app.post('/dasbord/profile',Upload.single('Profile'),CheckPrName,doAddProfile)
 //update
 app.put('/dasbord/profile',CheckPrName,doUpdateProfile)
 //deleteProfile
 app.delete('/dasbord/profile',doDeleteProfile)
+// checkprofile
 app.get('/dasbord/checkprofile',CheckProfile)
 
 //videos

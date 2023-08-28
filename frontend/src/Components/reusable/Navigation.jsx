@@ -31,7 +31,7 @@ export const Navigation = ({cheked}) => {
           try{
             const respone = await CheckProfile()
             if(!respone.ok){
-              Navigate('*')
+             console.error({msg : 'Error'})
             }
 
             if(respone.status === 203){

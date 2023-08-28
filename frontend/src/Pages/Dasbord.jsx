@@ -32,24 +32,24 @@ export const DasbordPage = () => {
                 
                     if(respone.status === 200){
                            setCheck(true)
-                           const FetchProfile = async() => {
-                            try{
-                              const respone = await CheckProfile()
-                              if(!respone.ok){
-                                Navigate('*')
-                              }
+                        //    const FetchProfile = async() => {
+                        //     try{
+                        //       const respone = await CheckProfile()
+                        //       if(!respone.ok){
+                        //         Navigate('*')
+                        //       }
                   
-                              if(respone.status === 203){
-                                setdataProfile(false)
-                                return false
-                              }
+                        //       if(respone.status === 203){
+                        //         setdataProfile(false)
+                        //         return false
+                        //       }
                   
-                              setdataProfile(true)
-                            }catch(error){
-                              console.error(error)
-                            }
-                          }
-                          FetchProfile()
+                        //       setdataProfile(true)
+                        //     }catch(error){
+                        //       console.error(error)
+                        //     }
+                        //   }
+                        //   FetchProfile()
                     }
             }
             Check()

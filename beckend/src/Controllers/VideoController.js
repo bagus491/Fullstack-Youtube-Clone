@@ -43,7 +43,10 @@ const doAddVideo = async (req,res) => {
             //addviews
             const add = addVideo(decodedUser,Title,Views,date,Desc,req.files['Video'],req.files['Poster'])
 
-            if(!add) {
+            //saved
+            const saved = await add.save()
+
+            if(!saved) {
                 return res.status(401).json({msg : 'Not Authorization'})
             }
 

@@ -34,7 +34,7 @@ const doAddProfile = async (req,res) => {
                 return res.status(401).json({msg : 'Not Authorization'})
             }
 
-            //error di sini
+            //error di sini(1)
             const error = validationResult(req)
               if(!error.isEmpty()){
             return res.status(203).send(error.array())
@@ -44,9 +44,13 @@ const doAddProfile = async (req,res) => {
             const Subs = "0";
             const {PrName,Desc} = req.body
 
-            const Profile = addProfile(decodedUser,PrName,Subs,Desc,req.file)
+            const Profile =  addProfile(decodedUser,PrName,Subs,Desc,req.file)
 
-            if(!Profile){
+            //saved
+            // error karena lupa menambahkan ini 
+            const profilesSave = await Profile.save()
+
+            if(!profilesSave){
                 return res.status(401).json({msg : 'Not Authorization'})
             }
 

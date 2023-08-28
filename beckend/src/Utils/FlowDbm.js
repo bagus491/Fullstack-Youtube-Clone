@@ -23,6 +23,7 @@ const getProfile = async (PrName) => {
     return await Profile.findOne({PrName})
 }
 
+
 //getOneProfilebyname
 const getOneProfilebyname = async (username) => {
     return await Profile.findOne({username})
