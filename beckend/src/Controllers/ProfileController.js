@@ -122,7 +122,8 @@ const CheckProfile = async (req,res) => {
             const ImagePath = `data:${ImgType};base64,${ImageData}`;
 
             //newObject
-            const Data = [_id,PrName,Subs,Desc,ImagePath];
+            //edited
+            const Data = {_id,PrName,Subs,Desc,ImagePath};
 
             res.status(200).json({msg : 'Success',Data})
         })

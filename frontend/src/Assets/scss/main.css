@@ -282,18 +282,23 @@
 }
 .top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .name {
   flex: 50%;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
+}
+.top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .name img {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
 }
 .top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .list {
   flex: 100%;
-  padding: 20px;
+  padding: 10px;
 }
 .top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .list .button {
   width: 100%;
   background: #F2594B;
   border: none;
-  margin-top: 15px;
+  margin-top: 8px;
 }
 .top-navbar .after-login .last .profile-box-active .profile-box-list .profile-box-flex .list .button:hover {
   background: #010326;

@@ -43,8 +43,8 @@ export const AddProfile = () => {
             }
 
             alert(json.msg)
-           //edited(1)
-            window.location.reload()
+           //edited(2)
+            Navigate('/dasbord')
         }catch(error){
             console.error(error)
         }

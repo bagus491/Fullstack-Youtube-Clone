@@ -11,6 +11,8 @@ import { UploadPage } from './Pages/Upload';
 import { ProfilePage } from './Pages/Profile';
 import { SettingPage } from './Pages/Setting';
 
+//adding
+import { ProfileAdd } from './Pages/FormProfile';
 
 //auth
 import { AuthProvider } from './AuthContext';
@@ -31,6 +33,7 @@ function App() {
       <Route path='/dasbord/upload' element={<UploadPage />}></Route>
       <Route path='/dasbord/profile' element={<ProfilePage />}></Route>
       <Route path='/dasbord/setting' element={<SettingPage />}></Route>
+      <Route path='/dasbord/add' element={<ProfileAdd />}></Route>
       <Route path='*' element={<NotFound />}></Route>
     </Routes>
     </AuthProvider>

@@ -40,7 +40,7 @@ export const ProfilePage = () => {
                               }
                   
                               if(respone.status === 203){
-                                Navigate('/dasbord')
+                                Navigate('/dasbord/add')
                                 return false
                               }
                               

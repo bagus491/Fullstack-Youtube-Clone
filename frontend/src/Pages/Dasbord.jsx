@@ -5,15 +5,12 @@ import {Container, Spinner} from 'react-bootstrap';
 
 import { CheckDasbord } from "../utils/UserFetch";
 import { Navigation } from "../Components/reusable/Navigation";
-import { CheckProfile } from "../utils/ProfileFetch";
-import { AddProfile } from "../Components/main-compo/AddProfile";
 
 export const DasbordPage = () => {
     const {userInfo,handleInfo} = useContext(AuthContext)
     const Navigate = useNavigate()
     const [Check, setCheck] = useState(false)
     const [getSpinner ,setgetSpinner] = useState(false)
-    const [dataProfile,setdataProfile] = useState()
     useEffect(() => {
         setTimeout(() => {
             setgetSpinner(true)
@@ -32,25 +29,8 @@ export const DasbordPage = () => {
                 
                     if(respone.status === 200){
                            setCheck(true)
-                           //edited(1)
-                           const FetchProfile = async() => {
-                            try{
-                              const respone = await CheckProfile()
-                              if(!respone.ok){
-                                Navigate('*')
-                              }
-                  
-                              if(respone.status === 203){
-                                setdataProfile(false)
-                                return false
-                              }
-                  
-                              setdataProfile(true)
-                            }catch(error){
-                              console.error(error)
-                            }
-                          }
-                          FetchProfile()
+                           //edited(2)
+
                     }
             }
             Check()
@@ -63,17 +43,8 @@ export const DasbordPage = () => {
             <div>
                 {
                     Check ?    
-                    <div>
-                        {
-                            dataProfile ?    
-                            <div>
-                                <Navigation cheked={Check}/>
-                            </div>
-                            :
-                            <Container style={{height: '80vh',display:'flex', justifyContent:'center',alignItems:'flex-end'}}>
-                                <AddProfile />
-                            </Container>
-                        }
+                    <div>       
+                                <Navigation cheked={Check}/>                       
                     </div>
                     :
                     <div><h1>ANDA TIDAK PUNYA AKSES</h1></div>

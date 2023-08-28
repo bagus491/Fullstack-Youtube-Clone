@@ -23,7 +23,7 @@ export const UploadPage = () => {
                 const respone = await CheckDasbord()
                 if(!respone.ok){
                     setTimeout(() => {
-                        Navigate('/login')
+                        Navigate('/dasbord/add')
                     },1000)
                 }
 
@@ -33,14 +33,15 @@ export const UploadPage = () => {
                         try{
                           const respone = await CheckProfile()
                           if(!respone.ok){
-                            Navigate('*')
+                            Navigate('login')
                           }
               
                           if(respone.status === 203){
-                            Navigate('/dasbord')
+                            Navigate('/dasbord/add')
                             return false
                           }
                           
+
                         }catch(error){
                           console.error(error)
                         }

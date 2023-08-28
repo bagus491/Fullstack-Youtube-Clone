@@ -40,14 +40,14 @@ export const Navigation = ({cheked}) => {
             }
 
             const json = await respone.json()
-            setdataProfile(json.Data)
+            //map
+           setdataProfile(json.Data)
           }catch(error){
             console.error(error)
           }
         }
         FetchProfile()
     },[CheckNavbar])
-
 
     const getSidebar = () => {
        if(sidebar === false){
@@ -98,6 +98,7 @@ export const Navigation = ({cheked}) => {
         console.error(error)
       }
     }
+
 
     return(
         <>
@@ -209,6 +210,55 @@ export const Navigation = ({cheked}) => {
                </div>
                {
                 Check ?
+                <div>
+                  {
+                    dataProfile ?   
+                      <div className="after-login">
+                      <div className="last">
+                          <Button  className="last-upload" onClick={() => Navigate('/dasbord/upload')}><Upload/></Button>
+                          <Button  className="last-Notif" onClick={() => handleNotif()}><Notif /></Button>
+  
+                          <div className={openNotif ? "notif-box-active" : "notif-box"  }>
+                            {
+                              SpinnerP ?     
+                              <div>
+                                <h1>Notif</h1>
+                              </div>
+                              :
+                              <Container style={{display: 'flex', height: '20vh', justifyContent: 'center',alignItems: 'flex-end'}}>
+                              <Spinner animation="grow" variant="info" />
+                              </Container>
+                            }
+                          </div>
+  
+                          <Button className="last-Profile" onClick={() => handleOpen()}>
+                            <Profile />
+                          </Button>
+                          <div className={openProfile ? 'profile-box-active'  :'profile-box ' }>
+                            {
+                              SpinnerP ?     
+                              <div className="profile-box-list">
+                                <div className="profile-box-flex">
+                                <div className="name">
+                                <img src={dataProfile.ImagePath} alt="foto"></img>
+                                <h6>{dataProfile.PrName}</h6>
+                                </div>
+                                <div className="list">
+                                <Button className="button" onClick={() => Navigate('/dasbord/profile')}>Profile</Button>
+                                <Button className="button" onClick={() => Navigate('/dasbord/setting')}>Setting</Button>
+                                <Button className="button" onClick={() => handleLogout()}>Logout</Button>
+                                </div>
+                                </div>
+                              </div>
+                              :
+                              <Container style={{display: 'flex', height: '20vh', justifyContent: 'center',alignItems: 'flex-end'}}>
+                              <Spinner animation="grow" variant="info" />
+                              </Container>
+                            }
+                          </div>
+                      </div>
+                      </div>
+                    : 
                  <div className="after-login">
                     <div className="last">
                         <Button  className="last-upload" onClick={() => Navigate('/dasbord/upload')}><Upload/></Button>
@@ -251,6 +301,8 @@ export const Navigation = ({cheked}) => {
                         </div>
                     </div>
                  </div>
+                  }
+                </div>
                   : 
                 <div className="before-login">
                     <div className="last">
