@@ -5,6 +5,8 @@ import { Container,Spinner } from "react-bootstrap"
 import { CheckDasbord } from "../utils/UserFetch"
 import { Navigation } from "../Components/reusable/Navigation"
 import { CheckProfile } from "../utils/ProfileFetch"
+import { UploadCompo } from "../Components/main-compo/UploadCompo"
+import '../Assets/scss/main.css'
 
 export const UploadPage = () => {
     const {userInfo} = useContext(AuthContext)
@@ -64,6 +66,13 @@ export const UploadPage = () => {
                 Check ?   
                 <div>
                     <Navigation cheked={Check}/>
+                    <Container>
+                        <div className="form-Upload">
+                        <div className="form">
+                        <UploadCompo />
+                        </div>
+                        </div>
+                    </Container>
                 </div>
                 :
                 <div>

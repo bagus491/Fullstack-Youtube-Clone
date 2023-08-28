@@ -46,6 +46,7 @@ const doAddProfile = async (req,res) => {
 
             const Profile =  addProfile(decodedUser,PrName,Subs,Desc,req.file)
 
+           
             //saved
             // error karena lupa menambahkan ini 
             const profilesSave = await Profile.save()

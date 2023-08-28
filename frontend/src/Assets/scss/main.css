@@ -556,4 +556,135 @@
   height: 50vh;
   display: flex;
   justify-content: center;
+}
+
+.List-Upload {
+  height: 100vh;
+}
+.List-Upload .videobox {
+  display: flex;
+  flex-wrap: wrap;
+}
+.List-Upload .videobox .card-video {
+  margin-left: 10px;
+  margin-top: 10px;
+  transition: 1s;
+}
+.List-Upload .videobox .card-video .content-card {
+  width: 100%;
+  height: 300px;
+}
+.List-Upload .videobox .card-video .content-card .videoCN {
+  display: none;
+}
+.List-Upload .videobox .card-video:hover {
+  overflow: hidden;
+}
+.List-Upload .videobox .card-video:hover .videoCN {
+  display: flex;
+  height: 200px;
+}
+.List-Upload .videobox .card-video:hover .imgCN {
+  display: none;
+}
+.List-Upload .videobox .card-video:hover .bodycard {
+  display: flex;
+  align-items: flex-end;
+}
+
+@media screen and (max-width: 576px) {
+  .List-Upload {
+    margin-top: 50px;
+  }
+  .videobox {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 768px) {
+  .List-Upload {
+    margin-top: 50px;
+  }
+  .videobox {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .List-Upload {
+    margin-top: 50px;
+  }
+  .videobox {
+    justify-content: center;
+  }
+}
+.profile-card-3 {
+  font-family: "Open Sans", Arial, sans-serif;
+  position: relative;
+  float: left;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+  height: 368px;
+  border: none;
+}
+
+.profile-card-3 .background-block {
+  float: left;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.profile-card-3 .background-block .background {
+  width: 100%;
+  vertical-align: top;
+  opacity: 0.9;
+  filter: blur(0.5px);
+  transform: scale(2.8);
+}
+
+.profile-card-3 .card-content {
+  width: 100%;
+  padding: 15px 25px;
+  color: #232323;
+  float: left;
+  background: #efefef;
+  height: 50%;
+  border-radius: 0 0 5px 5px;
+  position: relative;
+  z-index: 9999;
+}
+
+.profile-card-3 .card-content::before {
+  content: "";
+  background: #efefef;
+  width: 120%;
+  height: 100%;
+  left: 11px;
+  bottom: 51px;
+  position: absolute;
+  z-index: -1;
+  transform: rotate(-13deg);
+}
+
+.profile-card-3 .profile {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  max-width: 100px;
+  opacity: 1;
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgb(255, 255, 255);
+  transform: translate(-50%, 0%);
+  z-index: 99999;
+}
+
+.form-Upload {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 80vh;
+}
+.form-Upload .form {
+  width: 50%;
 }/*# sourceMappingURL=main.css.map */

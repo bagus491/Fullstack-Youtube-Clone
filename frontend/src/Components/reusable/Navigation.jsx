@@ -244,7 +244,7 @@ export const Navigation = ({cheked}) => {
                                 <h6>{dataProfile.PrName}</h6>
                                 </div>
                                 <div className="list">
-                                <Button className="button" onClick={() => Navigate('/dasbord/profile')}>Profile</Button>
+                                <Button className="button" onClick={() => Navigate(`/dasbord/profile/${dataProfile.PrName}`)}>Profile</Button>
                                 <Button className="button" onClick={() => Navigate('/dasbord/setting')}>Setting</Button>
                                 <Button className="button" onClick={() => handleLogout()}>Logout</Button>
                                 </div>

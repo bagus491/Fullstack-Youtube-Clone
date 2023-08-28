@@ -1,0 +1,11 @@
+
+
+ .form-Upload {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 80vh;
+    & .form {
+        width: 50%;
+    }
+}

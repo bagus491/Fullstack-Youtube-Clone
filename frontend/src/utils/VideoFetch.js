@@ -1,11 +1,11 @@
 
 //addvideo
-export const addVideo = async (Title,Desc,Videos,Poster) => {
+export const addVideo = async (Title,Desc,Video,Poster) => {
     try{
         const formData = new FormData()
                 formData.append('Title',Title)
                 formData.append('Desc',Desc)
-                formData.append('Videos',Videos[0])
+                formData.append('Video',Video[0])
                 formData.append('Poster',Poster[0])
         const respone = await fetch('http://localhost:5000/dasbord/upload',{
             method:'post',
@@ -61,7 +61,7 @@ export const watchVideo = async(PrName,id) => {
 //doDelete
 export const doDeleteVideo = async(id) =>{
     try{
-        const respone = await fetch(`http://localhost:5000/${id}`,{
+        const respone = await fetch(`http://localhost:5000/dasbord/video/${id}`,{
             method: 'delete',
             credentials: 'include'
         })

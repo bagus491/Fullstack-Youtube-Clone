@@ -55,7 +55,7 @@ app.post('/dasbord/upload',Upload.fields([{name: 'Video'},{name:'Poster'}]),doAd
 //watch
 app.get('/watch/:PrName/:id',watchVideo)
 //delete video
-app.delete('/dasbord/videos/:id',doDeleteVideo)
+app.delete('/dasbord/video/:id',doDeleteVideo)
 
 
 //checksubs

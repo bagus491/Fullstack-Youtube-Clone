@@ -6,6 +6,7 @@ import { CheckDasbord } from "../utils/UserFetch"
 import { Navigation } from "../Components/reusable/Navigation"
 import { ProfileCompo } from "../Components/main-compo/ProfileCompo"
 import { CheckProfile } from "../utils/ProfileFetch"
+import { Videolist } from "../Components/main-compo/VIdeoList"
 
 export const ProfilePage = () => {
     const {userInfo} = useContext(AuthContext)
@@ -71,7 +72,7 @@ export const ProfilePage = () => {
                     <ProfileCompo />
                     </div>
                     <div className="List-Upload">
-                        <h1>tester</h1>
+                       <Videolist />
                     </div>
                     </Container>
                 </div>

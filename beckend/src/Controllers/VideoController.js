@@ -41,7 +41,7 @@ const doAddVideo = async (req,res) => {
             let Views = "0"
 
             //addviews
-            const add = addVideo(decodedUser,Title,Views,date,Desc,req.files['Video'],req.files['Poster'])
+            const add = addVideo(decodedUser,Title,Views,date,Desc,req.files['Video'][0],req.files['Poster'][0])
 
             //saved
             const saved = await add.save()
@@ -132,7 +132,7 @@ const getVideoUpload = async(req,res) => {
             }
 
             //map
-            const dataMap = await promise.all(
+            const dataMap = await Promise.all(
                 await FilterData.map((e) => {
                     const {_id,Title,Views,VdFile,VdType,ImgFile,ImgType} = e
 
