@@ -31,7 +31,7 @@ export const WatchVideo = () => {
             }
         }
      
-        return () => Fetch()
+        Fetch()
     },[id])
     return(
         <>

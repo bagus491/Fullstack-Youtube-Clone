@@ -35,7 +35,7 @@ export const CardWatch = () => {
             console.error(error)
         }
     }
-    return () => Fetch()
+    Fetch()
     },[id,Navigate])
     return(
         <>
