@@ -73,15 +73,15 @@ const ProfileGet = async (req,res) => {
             return res.status(203).json({msg : 'Not Authorization'})
         }
 
-        const {_id,PrName,Subs,Desc,ImageFile,ImageType} = ProfileOk
+        const {_id,PrName,Subs,Desc,ImgFile,ImgType} = ProfileOk
 
         //decodedImage
-        const ImageData = ImageFile.toString('base64');
+        const ImageData = ImgFile.toString('base64');
         //imagePath
-        const ImagePath = `data:${ImageType};base64,${ImageData}`;
+        const ImagePath = `data:${ImgType};base64,${ImageData}`;
 
         //newObject
-        const Data = [_id,PrName,Subs,Desc,ImagePath];
+        const Data = {_id,PrName,Subs,Desc,ImagePath};
 
         res.status(200).json({msg : 'Success',Data})
     }catch(error){

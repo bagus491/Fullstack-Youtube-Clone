@@ -1,0 +1,97 @@
+
+
+
+.main-watch {
+    height: 100vh;
+    // background: salmon;
+    display: flex;
+    flex-wrap: wrap;
+
+    & .watch-video {
+        flex: 70%;
+        padding: 20px;
+        // background: brown;
+        display: flex;
+        flex-direction: column;
+
+        & .content-video {
+            flex: 50%;
+            padding: 10px;
+            background: black;
+        }
+
+        & .content-profile {
+            flex: 50%;
+            padding: 10px;
+            // background: orange;
+
+            & .profile-content {
+                width: 100%;
+                & .profile-flex {
+                    display: flex;
+                    // flex-wrap: wrap;
+
+                    & .profile-pict {
+                        // padding: 20px;
+                        // background: brown;
+                        flex: 5%;
+
+                        & .pict-box {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 25px;
+                            background: grey;
+
+                            & img {
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 25px;
+                            }
+                        }
+                    }
+
+                    & .profile-sub {
+                        // padding: 20px;
+                        // background: aqua;
+                        flex: 90%;
+
+                        & a {
+                            text-decoration: none;
+                            font-weight: bold;
+                            color: black;
+                        }
+                    }
+                }
+            }
+
+            & .Profile-Desc {
+                width: 100%;
+                background: gainsboro;
+                border-radius: 20px;
+                padding: 10px;
+                transition: 1s;
+            }
+
+            & .Profile-Desc:hover {
+                background: black;
+                color: white;
+            }
+
+        }
+    }
+
+    & .watch-side {
+        flex: 5%;
+        padding: 20px;
+        background: white;
+
+        & .card-video {
+            & .card-content {
+                height: 150px;
+                background: brown;
+                overflow: hidden;
+               
+            }
+        }
+    }
+}

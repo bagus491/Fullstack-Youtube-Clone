@@ -53,7 +53,8 @@ app.get('/dasbord/videos/:PrName',getVideoUpload)
 //post
 app.post('/dasbord/upload',Upload.fields([{name: 'Video'},{name:'Poster'}]),doAddVideo)
 //watch
-app.get('/watch/:PrName/:id',watchVideo)
+//changes
+app.get('/watch/:id',watchVideo)
 //delete video
 app.delete('/dasbord/video/:id',doDeleteVideo)
 

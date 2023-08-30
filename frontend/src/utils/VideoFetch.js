@@ -45,9 +45,9 @@ export const getVideoUpload = async(PrName) => {
 }
 
 //watch
-export const watchVideo = async(PrName,id) => {
+export const watchVideo = async(id) => {
     try{
-        const respone = await fetch(`http://localhost:5000/watch/${PrName}/${id}`,{
+        const respone = await fetch(`http://localhost:5000/watch/${id}`,{
             method:'GET',
             credentials: 'include'
         })

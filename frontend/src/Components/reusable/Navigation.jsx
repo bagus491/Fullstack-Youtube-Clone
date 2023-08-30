@@ -46,7 +46,7 @@ export const Navigation = ({cheked}) => {
             console.error(error)
           }
         }
-        FetchProfile()
+      return () => FetchProfile()
     },[CheckNavbar])
 
     const getSidebar = () => {

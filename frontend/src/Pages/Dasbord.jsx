@@ -30,7 +30,6 @@ export const DasbordPage = () => {
                     if(respone.status === 200){
                            setCheck(true)
                            //edited(2)
-
                     }
             }
             Check()

@@ -166,6 +166,7 @@ const getVideoUpload = async(req,res) => {
 const watchVideo = async(req,res) => {
     try{
         const token = req.cookies.token || req.headers.authorization
+        console.log(token)
         if(token){
             jwt.verify(token,secret,async(err,decoded) => {
                 if(err){
@@ -183,11 +184,12 @@ const watchVideo = async(req,res) => {
                 //videOk
                 const VideoOk = await VideosById(req.params.id)
                 if(!VideoOk){
-                    return res.status(401).json({msg : 'Not Authorization'})
+                    return res.status(203).json({msg : 'Not Authorization'})
                 }
+                
 
                 //destucrion
-                const {Title,Views,Date,Desc,VdFile,VdType} = VideoOk
+                const {username,Title,Views,Date,Desc,VdFile,VdType} = VideoOk
 
                 //decodedVideo
                 const VideoData = VdFile.toString('base64')
@@ -195,7 +197,7 @@ const watchVideo = async(req,res) => {
                 const VideoPath = `data:${VdType};base64,${VideoData}`
 
                 //checkuser
-                if(VideoOk.username != decodedUser){
+                if(username !== decodedUser){
                     //getViews
                     //change to number
                     let View = parseInt(Views)
@@ -212,11 +214,42 @@ const watchVideo = async(req,res) => {
                     }
                 }
 
-                //ForSideVideo
-                const Videos = await VideoData()
+                //Find Profile by username VideoOk
+                // add this
+                const ProfileOk = await getOneProfilebyname(username);
+                if(!ProfileOk){
+                    return res.status(203).json({msg : 'Not Authorization'})
+                }
+                   //  error disini
+                const {_id,PrName,Subs,ImgFile,ImgType} = ProfileOk
 
+                //decodedImage
+                const ImageData = ImgFile.toString('base64');
+                //imagePath
+                const ImagePath = `data:${ImgType};base64,${ImageData}`;
+        
+                //newObject
+                const DataProfile = {_id,PrName,Subs,ImagePath};
+
+                //to this
+
+
+                //ForSideVideo
+                   //  error disini
+                const Videos = await VideosData()
+
+                //adding
+                //before filter by id , must filter 
+                //Filter Videos for != username 
+                //algortima ini buat agar video di side tidak menampilkan atau rekomendasi video yang tidak sesuai username users
+                const newVideos = Videos.filter((e) => e.username != username)
+                if(!newVideos || newVideos.length < 0){
+                    return res.status(203).json({msg : 'Not Authorization'})
+                }
+
+    
                 //filterVideos
-                const FilterVideo = Videos.filter((e) => e.username != decodedUser)
+                const FilterVideo = newVideos.filter((e) => e._id.toString() != req.params.id.toString())
                 if(!FilterVideo || FilterVideo.length < 0){
                     return res.status(203).json({msg : 'Not Authorization'})
                 }
@@ -236,22 +269,23 @@ const watchVideo = async(req,res) => {
                 )
 
                 if(!FilterMap || FilterMap.length < 0){
-                    return res.status(401).json({msg : 'Not Authorization'})
+                    return res.status(203).json({msg : 'Not Authorization'})
                 }
 
                const data = {Title,Views,Date,Desc,VideoPath}
 
-               res.status(200).json({msg : 'Success', data,datas:FilterMap})
+               res.status(200).json({msg : 'Success', data,datas:FilterMap,DataProfile})
             })
         }else{
               //videOk
               const VideoOk = await VideosById(req.params.id)
               if(!VideoOk){
-                  return res.status(401).json({msg : 'Not Authorization'})
+                  return res.status(203).json({msg : 'Not Authorization'})
               }
 
               //destucrion
-              const {Title,Views,Date,Desc,VdFile,VdType} = VideoOk
+              //lupa useranme
+              const {username,Title,Views,Date,Desc,VdFile,VdType} = VideoOk
 
               //decodedVideo
               const VideoData = VdFile.toString('base64')
@@ -273,11 +307,32 @@ const watchVideo = async(req,res) => {
                         return res.status(401).json({msg : 'Not Authorization'})
                     }
 
-                        //ForSideVideo
-                const Videos = await VideoData()
+                 //Find Profile by username VideoOk
+                // add this
+                const ProfileOk = await getOneProfilebyname(username);
+                if(!ProfileOk){
+                    return res.status(203).json({msg : 'Not Authorization'})
+                }
+                     //  error disini
+                const {_id,PrName,Subs,ImgFile,ImgType} = ProfileOk
+
+                //decodedImage
+                const ImageData = ImgFile.toString('base64');
+                //imagePath
+                const ImagePath = `data:${ImgType};base64,${ImageData}`;
+        
+                //newObject
+                const DataProfile = {_id,PrName,Subs,ImagePath};
+
+                //to this
+
+                 //ForSideVideo
+                //  error disini
+                const Videos = await VideosData()
 
                 //filterVideos
-                const FilterVideo = Videos.filter((e) => e.username != decodedUser)
+                //changes di sini filter berdasarkan id video dari req.params.id
+                const FilterVideo = Videos.filter((e) => e._id.toString() != req.params.id.toString())
                 if(!FilterVideo || FilterVideo.length < 0){
                     return res.status(203).json({msg : 'Not Authorization'})
                 }
@@ -295,14 +350,14 @@ const watchVideo = async(req,res) => {
                         return {_id,username,Title,Views,ImgPath}
                     })
                 )
-
+                    
                 if(!FilterMap || FilterMap.length < 0){
                     return res.status(401).json({msg : 'Not Authorization'})
                 }
 
                const data = {Title,Views,Date,Desc,VideoPath}
 
-               res.status(200).json({msg : 'Success', data,datas:FilterMap})
+               res.status(200).json({msg : 'Success', data,datas:FilterMap,DataProfile})
         }
     }catch(error){
          res.status(500).json({msg : 'Internal Server Error'})
