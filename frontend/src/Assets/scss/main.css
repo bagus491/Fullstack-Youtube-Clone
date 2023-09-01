@@ -272,6 +272,8 @@
   transition: 1s;
   display: flex;
   overflow: hidden;
+  z-index: 99;
+  background: white;
 }
 .top-navbar .after-login .last .profile-box-active .profile-box-list {
   width: 100%;
@@ -553,9 +555,10 @@
 }
 
 .Profile {
-  height: 50vh;
+  height: 20vh;
   display: flex;
   justify-content: center;
+  margin-bottom: 220px;
 }
 
 .List-Upload {

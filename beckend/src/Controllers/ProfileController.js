@@ -44,6 +44,21 @@ const doAddProfile = async (req,res) => {
             const Subs = "0";
             const {PrName,Desc} = req.body
 
+              //validasi poster
+              const PosterUpload = req.files.mimetype;
+              //validformat
+              const PosterValid = ['jpeg','jpg','png'];
+              //split
+              const CheckPoster = PosterUpload.split('/');
+              //format
+              const getFormatPoster = CheckPoster[CheckPoster.length - 1];
+              //filterPoster
+              const FindFormat = PosterValid.find((e)=> e === getFormatPoster);
+  
+              if(!FindFormat){
+                  return res.status(401).json({msg : 'Your Upload Poster Not Poster'})
+              }
+
             const Profile =  addProfile(decodedUser,PrName,Subs,Desc,req.file)
 
            

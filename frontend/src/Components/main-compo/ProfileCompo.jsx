@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { Spinner,Container } from "react-bootstrap"
 import { CheckProfile } from "../../utils/ProfileFetch"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export const ProfileCompo = () => {
     const [getSpinner , setgetSpinner] = useState(false)
     const [dataProfile, setdataProfile] = useState()
     const Navigate = useNavigate()
+    const {PrName} = useParams()
 
     useEffect(() => {
         setTimeout(() => {
@@ -31,7 +32,7 @@ export const ProfileCompo = () => {
             }
         }
         FetchProfile()
-    },[Navigate])
+    },[Navigate,PrName])
     return(
         <>
     	{

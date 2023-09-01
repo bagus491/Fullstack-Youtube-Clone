@@ -23,7 +23,7 @@ const doAddVideo = async (req,res) => {
             const decodedUser = decoded.username
             const dataOk = await UserOne(decodedUser)
             if(!dataOk){
-                return res.status(401).json({msg : 'Not Authorization'})
+                return res.status(404).json({msg : 'Not Authorization'})
             }
 
             //checkProfile
@@ -33,6 +33,9 @@ const doAddVideo = async (req,res) => {
             }
 
             const {Title,Desc} = req.body
+
+            //PROFILE
+            const {PrName} = ProfileOk
             
             //date
             const date = new Date()
@@ -40,8 +43,38 @@ const doAddVideo = async (req,res) => {
             //views
             let Views = "0"
 
+            //validasi Video
+            const VideoUpload = req.files['Video'][0].mimetype
+            //valid format
+            const VideoValid = ['mp4','mov','avi'];
+            // get array  , lalu jadikan array dengan pemisan '/'
+            const CheckType = VideoUpload.split('/');
+            //setelah itu dapetin last index atau format
+            const getFormat = CheckType[CheckType.length - 1];
+            //lalu find atau cari atau cocokan dengan format
+            const filterChecker = VideoValid.find((e) => e === getFormat);
+            
+            if(!filterChecker){
+                return res.status(401).json({msg : 'Your Upload Video Not Video'})
+            }
+
+            //validasi poster
+            const PosterUpload = req.files['Poster'][0].mimetype;
+            //validformat
+            const PosterValid = ['jpeg','jpg','png'];
+            //split
+            const CheckPoster = PosterUpload.split('/');
+            //format
+            const getFormatPoster = CheckPoster[CheckPoster.length - 1];
+            //filterPoster
+            const FindFormat = PosterValid.find((e)=> e === getFormatPoster);
+
+            if(!FindFormat){
+                return res.status(401).json({msg : 'Your Upload Poster Not Poster'})
+            }
+
             //addviews
-            const add = addVideo(decodedUser,Title,Views,date,Desc,req.files['Video'][0],req.files['Poster'][0])
+            const add = addVideo(decodedUser,PrName,Title,Views,date,Desc,req.files['Video'][0],req.files['Poster'][0])
 
             //saved
             const saved = await add.save()

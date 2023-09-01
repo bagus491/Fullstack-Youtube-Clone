@@ -286,6 +286,8 @@
                     transition: 1s;
                     display: flex;
                     overflow: hidden;
+                    z-index: 99;
+                    background: white;
                     & .profile-box-list {
                         width: 100%;
 

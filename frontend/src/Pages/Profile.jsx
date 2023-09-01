@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../AuthContext"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Container,Spinner } from "react-bootstrap"
 import { CheckDasbord } from "../utils/UserFetch"
 import { Navigation } from "../Components/reusable/Navigation"
@@ -13,6 +13,7 @@ export const ProfilePage = () => {
     const Navigate = useNavigate()
     const [Check, setCheck] = useState(false)
     const [getSpinner ,setgetSpinner] = useState(false)
+    const {PrName} = useParams()
 
     useEffect(() => {
         setTimeout(() => {
@@ -57,7 +58,7 @@ export const ProfilePage = () => {
             }
             Check()
         }
-    },[userInfo,Navigate])
+    },[userInfo,Navigate,PrName])
     return(
         <>
        {

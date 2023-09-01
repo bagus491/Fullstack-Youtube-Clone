@@ -92,9 +92,10 @@ const Videos = require('../Models/Videos')
 
 //add video
 
-const addVideo = (username,Title,Views,Date,Desc,Vd,Img) => {
+const addVideo = (username,PrName,Title,Views,Date,Desc,Vd,Img) => {
     return new Videos({
         username,
+        PrName,
         Title,
         Views,
         Date,

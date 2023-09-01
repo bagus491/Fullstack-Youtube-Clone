@@ -11,6 +11,11 @@ export const CardWatch = () => {
     const Navigate = useNavigate()
     const {id} = useParams()
 
+    const HandleChange  = (id) => {
+        Navigate(`/watch/${id}`)
+        document.location.reload()
+    }
+
     useEffect(() => {
     const Fetch = async () => {
         try{
@@ -109,7 +114,7 @@ export const CardWatch = () => {
                                    </div>
                                </div>
                            <Card.Body>
-                           <Button style={{border: 'none', background:'none', color: 'black'}} onClick={() => Navigate(`/watch/${e._id}`)}>{e.Title}</Button>
+                           <Button style={{border: 'none', background:'none', color: 'black'}} onClick={() => HandleChange(e._id)}>{e.Title}</Button>
                              <Card.Subtitle className="mb-2 text-muted">Views : {e.Views}</Card.Subtitle>
                              <p>{e.username}</p>
                            </Card.Body>

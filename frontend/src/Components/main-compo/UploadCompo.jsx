@@ -15,8 +15,14 @@ export const UploadCompo = () => {
         e.preventDefault()
         try{
             const respone = await addVideo(Title,Desc,Video,Poster)
-            if(!respone.ok){
-                Navigate('*')
+            if(respone.status === 404){
+              Navigate('*')
+            }
+
+            if(respone.status === 401){
+              const json  = await respone.json()
+              alert(json.msg)
+              return false;
             }
 
             const json  = await respone.json()

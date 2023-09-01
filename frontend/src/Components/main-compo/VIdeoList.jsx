@@ -43,6 +43,7 @@ export const Videolist = () => {
                 }
 
                 const json = await respone.json()
+                console.log(json)
                 setDatas(json.data)
                 setgetSpinner(true)
             }catch(error){
@@ -50,7 +51,7 @@ export const Videolist = () => {
             }
         }
         Fetch()
-    },[Navigate])
+    },[Navigate,PrName])
     return(
         <>
             {

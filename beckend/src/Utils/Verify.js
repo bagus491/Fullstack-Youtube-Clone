@@ -22,7 +22,7 @@ const Validator = [
         }
     }),
     check('password').isLength({min: 5}).withMessage('Pass Length min 5'),
-    check('email').isEmail().withMessage('Email Didnt Valid')
+    check('email').isEmail().withMessage('Email Didnt Valid'),
 ]
 
 
