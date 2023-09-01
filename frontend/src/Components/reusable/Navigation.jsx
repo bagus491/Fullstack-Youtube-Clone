@@ -136,7 +136,7 @@ export const Navigation = ({cheked}) => {
             <div className="beranda">
               {
                 Check  ?   
-                <Button className="button" onClick={() => Navigate('/dasbord')}>
+                <Button className="button" onClick={() => Navigate('/')}>
                 <Beranda style={{width: '30px',height: '20px'}}/>
                 <h6 style={{marginLeft: '20px'}}>Beranda</h6>
                 </Button>
@@ -173,7 +173,7 @@ export const Navigation = ({cheked}) => {
                 <div className="logo-tittle">
                   {
                     Check  ?     
-                    <Button className="logo-btn"  onClick={() => Navigate('/dasbord')}>
+                    <Button className="logo-btn"  onClick={() => Navigate('/')}>
                     <div className="logo-pict">
                       <Logo />
                     </div>

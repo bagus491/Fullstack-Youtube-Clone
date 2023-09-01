@@ -24,12 +24,11 @@ function App() {
    <Router>
     <AuthProvider>
     <Routes>
-      <Route path='/' element={<HomeWeb />}></Route>
       <Route path='/login' element={<LoginPage />}></Route>
       <Route path='/register' element={<RegisterPage />}></Route>
       <Route path='/watch/:id' element={<WatchVideo />}></Route>
+      <Route path='/' element={< DasbordPage />}></Route>
       {/* saved */}
-      <Route path='/dasbord' element={< DasbordPage />}></Route>
       <Route path='/dasbord/upload' element={<UploadPage />}></Route>
       <Route path='/profile/:PrName' element={<ProfilePage />}></Route>
       <Route path='/dasbord/setting' element={<SettingPage />}></Route>

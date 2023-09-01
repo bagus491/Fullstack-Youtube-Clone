@@ -72,9 +72,8 @@ export const Videolist = ({checkbutton}) => {
                                         </div>
                                     <Card.Body className="bodycard">
                                         <div className="body-flex">
-                                      <Card.Title>{e.Title}</Card.Title>
+                                      <Button onClick={() => Navigate(`/watch/${e._id}`)} style={{marginRight: '5px',background:'none', border:'none',color:'black', fontWeight: 'bold'}}>{e.Title}</Button>
                                       <Card.Title>Views: {e.Views}</Card.Title>
-                                      <Button variant="primary" onClick={() => Navigate(`/watch/${e._id}`)}>Watch</Button>
                                       {
                                         checkbutton ?   
                                         <Button variant="danger" style={{marginLeft: '3px'}} onClick={() => handleDelete(e._id)}>Delete</Button>

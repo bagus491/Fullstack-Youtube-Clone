@@ -25,7 +25,7 @@ export const LoginCard = () => {
 
             alert(json.msg)
             handleInfo(json.token)
-            Navigate('/dasbord')
+            Navigate('/')
         }catch(error){
             console.error(error)
         }

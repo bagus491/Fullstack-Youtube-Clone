@@ -1,0 +1,39 @@
+
+
+.videobox {
+        display: flex;
+        flex-wrap: wrap;
+        
+
+        & .card-video {
+            margin-left: 10px;
+            margin-top: 10px;
+            transition: 1s;
+
+            & .content-card {
+                width: 100%;
+                height: 300px;
+                // background: brown;
+                & .videoCN {
+                    display: none;
+                }
+            }
+        }
+
+        & .card-video:hover {
+            overflow: hidden;
+            & .videoCN {
+                display: flex;
+                height: 200px;
+            }
+
+            & .imgCN {
+                display: none;
+            }
+
+            & .bodycard {
+                display: flex;
+                align-items: flex-end;
+            }
+        }
+    }

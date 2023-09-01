@@ -99,10 +99,12 @@ const getVideos = async(req,res) => {
             return res.status(401).json({msg : 'Not Authorization'})
         }
 
+
+
         //map
         const mapVideos = await Promise.all(
-            await Videos.map((e) => {
-                const {_id,Title,Views,VdFile,VdType,ImgFile,ImgType} = e
+            await Videos.map(async (e) => {
+                const {_id,PrName,Title,Views,VdFile,VdType,ImgFile,ImgType} = e
 
                 //decodedVIDEO
                 const videDeco = VdFile.toString('base64');
@@ -113,8 +115,19 @@ const getVideos = async(req,res) => {
                 const ImgDeco = ImgFile.toString('base64');
                 //path
                 const ImgPath = `data:${ImgType};base64,${ImgDeco}`
+                
+                  //getProfile //for pict
+                 const ProfileOk = await getProfile(PrName)
+                 if(!ProfileOk){
+                    return res.status(404).json({msg : 'Not Authorization'})
+                 }
 
-                return {_id,Title,Views,videoPath,ImgPath}
+                 //decodedImage
+                 const ImageData = ProfileOk.ImgFile.toString('base64');
+                 //imagePath
+                 const ProfilePath = `data:${ProfileOk.ImgType};base64,${ImageData}`;
+
+                return {_id,PrName,Title,Views,videoPath,ImgPath,ProfilePath}
             })
         )
 

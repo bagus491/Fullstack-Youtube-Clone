@@ -77,7 +77,7 @@ export const CardWatch = () => {
        
                            {/* profilse-sub name  */}
                            <div className="profile-sub">
-                              <a href="/">{DataProfile.PrName}</a>
+                           <Button onClick={() => Navigate(`/profile/${DataProfile.PrName}`)} style={{marginRight: '5px',background:'none', border:'none',color:'black'}}>{DataProfile.PrName}</Button>
                               <p>{DataProfile.Subs}<span style={{fontSize: '13px', marginLeft: '5px'}}>Subscriber</span></p>
                            </div>
        
