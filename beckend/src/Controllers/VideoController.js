@@ -158,8 +158,11 @@ const getVideoUpload = async(req,res) => {
             //dataVideos
             const videos = await VideosData()
 
+            //filtervideo by Profileok
+            const {PrName} = profileOk
+
             //filter
-            const FilterData = videos.filter((e) => e.username === decodedUser)
+            const FilterData = videos.filter((e) => e.PrName ===  PrName);
             if(!FilterData || FilterData.length < 0){
                 return res.status(203).json({msg : 'Videos Doenst Exist'})
             }

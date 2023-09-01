@@ -31,7 +31,7 @@ function App() {
       {/* saved */}
       <Route path='/dasbord' element={< DasbordPage />}></Route>
       <Route path='/dasbord/upload' element={<UploadPage />}></Route>
-      <Route path='/dasbord/profile/:PrName' element={<ProfilePage />}></Route>
+      <Route path='/profile/:PrName' element={<ProfilePage />}></Route>
       <Route path='/dasbord/setting' element={<SettingPage />}></Route>
       <Route path='/dasbord/add' element={<ProfileAdd />}></Route>
       <Route path='*' element={<NotFound />}></Route>
