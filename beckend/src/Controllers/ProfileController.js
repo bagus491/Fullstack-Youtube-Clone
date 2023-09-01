@@ -85,7 +85,7 @@ const ProfileGet = async (req,res) => {
     try{
         const ProfileOk = await getProfile(req.params.PrName)
         if(!ProfileOk){
-            return res.status(203).json({msg : 'Not Authorization'})
+            return res.status(404).json({msg : 'Not Authorization'})
         }
 
         const {_id,PrName,Subs,Desc,ImgFile,ImgType} = ProfileOk
@@ -126,7 +126,7 @@ const CheckProfile = async (req,res) => {
 
             const ProfileOk = await getOneProfilebyname(decodedUser)
             if(!ProfileOk){
-                return res.status(203).json({msg : 'Not Authorization'})
+                return res.status(404).json({msg : 'Not Authorization'})
             }
 
             const {_id,PrName,Subs,Desc,ImgFile,ImgType} = ProfileOk

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Spinner,Container } from "react-bootstrap"
-import { CheckProfile } from "../../utils/ProfileFetch"
+import { CheckProfile,GetProfile } from "../../utils/ProfileFetch"
 import { useNavigate, useParams } from "react-router-dom"
 
 export const ProfileCompo = () => {
@@ -16,17 +16,30 @@ export const ProfileCompo = () => {
         const FetchProfile = async () => {
             try{
                 const respone = await CheckProfile()
-                if(!respone.ok){
-                    Navigate('/login')
-                }
+                if(respone.status === 401){
+                    console.error({msg : 'Not Authorization'})
+                  }
 
-                if(respone.status === 203){
+                if(respone.status === 404){
                     Navigate('/dasbord/add')
                     return false
                 }
 
-                const json = await respone.json()
-                setdataProfile(json.Data)
+                //jika success sampai sini 
+                const getFetchProfile = async () => {
+                    try{
+                        const datarespone = await GetProfile(PrName)
+                        if(datarespone.status === 404){
+                            Navigate('/')
+                        }
+
+                        const jsonNew = await datarespone.json()
+                        setdataProfile(jsonNew.Data)
+                    }catch(error){
+                        console.error(error)
+                    }
+                }
+                getFetchProfile()
             }catch(error){
                 console.error(error)
             }

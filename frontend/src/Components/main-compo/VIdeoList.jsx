@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getVideoUpload,doDeleteVideo } from "../../utils/VideoFetch"
 import {Card,Button,Spinner,Container} from 'react-bootstrap'
 
-export const Videolist = () => {
+export const Videolist = ({checkbutton}) => {
     const [getSpinner, setgetSpinner] = useState(false)
     const [Datas , setDatas] = useState() 
     const Navigate = useNavigate()
@@ -34,16 +34,15 @@ export const Videolist = () => {
             try{
                 const respone = await getVideoUpload(PrName)
                 if(!respone.ok){
-                    Navigate('/login')
+                   console.error({msg : 'Not Authorization'});
                 }
 
-                if(respone.status === 203){
+                if(respone.status === 404){
                     setDatas(false)
                     return false
                 }
 
                 const json = await respone.json()
-                console.log(json)
                 setDatas(json.data)
                 setgetSpinner(true)
             }catch(error){
@@ -76,7 +75,12 @@ export const Videolist = () => {
                                       <Card.Title>{e.Title}</Card.Title>
                                       <Card.Title>Views: {e.Views}</Card.Title>
                                       <Button variant="primary" onClick={() => Navigate(`/watch/${e._id}`)}>Watch</Button>
-                                      <Button variant="danger" style={{marginLeft: '3px'}} onClick={() => handleDelete(e._id)}>Delete</Button>
+                                      {
+                                        checkbutton ?   
+                                        <Button variant="danger" style={{marginLeft: '3px'}} onClick={() => handleDelete(e._id)}>Delete</Button>
+                                        :
+                                        <p></p>
+                                      }
                                         </div>
                                     </Card.Body>
                                   </Card>

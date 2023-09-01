@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../AuthContext"
+import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Container,Spinner } from "react-bootstrap"
 import { CheckDasbord } from "../utils/UserFetch"
@@ -9,9 +8,8 @@ import { CheckProfile } from "../utils/ProfileFetch"
 import { Videolist } from "../Components/main-compo/VIdeoList"
 
 export const ProfilePage = () => {
-    const {userInfo} = useContext(AuthContext)
     const Navigate = useNavigate()
-    const [Check, setCheck] = useState(false)
+    const [Check, setCheck] = useState(true)
     const [getSpinner ,setgetSpinner] = useState(false)
     const {PrName} = useParams()
 
@@ -19,33 +17,27 @@ export const ProfilePage = () => {
         setTimeout(() => {
             setgetSpinner(true)
         },1000)
-        if(!userInfo){
-            Navigate('/login')
-        }else{
             const Check = async () => {
                 try{
                     const respone = await CheckDasbord()
-                    if(!respone.ok){
-                        setTimeout(() => {
-                            Navigate('/login')
-                        },1000)
-                    }
+                  if(respone.status === 401){
+                    console.error({msg : 'Not Authorization'})
+                    setCheck(false)
+                  }
 
 
                     if(respone.status === 200){
-                        setCheck(true)
+                          //jika true
+                          setCheck(true);
                         const FetchProfile = async() => {
                             try{
                               const respone = await CheckProfile()
-                              if(!respone.ok){
-                                Navigate('*')
-                              }
-                  
-                              if(respone.status === 203){
+                              if(respone.status === 404){
                                 Navigate('/dasbord/add')
                                 return false
                               }
                               
+                            
                             }catch(error){
                               console.error(error)
                             }
@@ -57,15 +49,13 @@ export const ProfilePage = () => {
                 }
             }
             Check()
-        }
-    },[userInfo,Navigate,PrName])
+        
+    },[Navigate,PrName])
     return(
         <>
        {
         getSpinner ?   
         <div>
-            {
-                Check ?   
                 <div>
                     <Navigation cheked={Check}/>
                     <Container>
@@ -73,16 +63,10 @@ export const ProfilePage = () => {
                     <ProfileCompo />
                     </div>
                     <div className="List-Upload">
-                       <Videolist />
+                       <Videolist  checkbutton={Check}/>
                     </div>
                     </Container>
                 </div>
-                :
-
-                <div>
-                    <h1>anda tidak punya akses</h1>
-                </div>
-            }
         </div>
         :
 

@@ -132,67 +132,48 @@ const getVideos = async(req,res) => {
 //filtervideobyPrNAME
 const getVideoUpload = async(req,res) => {
     try{
-        const token = req.cookies.token || req.headers.authorization
-        if(!token){
+        //checkProfile
+        const profileOk = await getProfile(req.params.PrName)
+        if(!profileOk){
             return res.status(401).json({msg : 'Not Authorization'})
         }
 
-        jwt.verify(token,secret,async(err,decoded) => {
-            if(err){
-                return res.status(401).json({msg : 'Not Authorization'})
-            }
+        //dataVideos
+        const videos = await VideosData()
 
-            const decodedUser = decoded.username
-            //data
-            const dataOk = await UserOne(decodedUser)
-            if(!dataOk){
-                return res.status(401).json({msg : 'Not Authorization'})
-            }
+        //filtervideo by Profileok
+        const {PrName} = profileOk
 
-            //checkProfile
-            const profileOk = await getProfile(req.params.PrName)
-            if(!profileOk){
-                return res.status(401).json({msg : 'Not Authorization'})
-            }
+        //filter
+        const FilterData = videos.filter((e) => e.PrName ===  PrName);
+        if(!FilterData || FilterData.length < 0){
+            return res.status(404).json({msg : 'Videos Doenst Exist'})
+        }
 
-            //dataVideos
-            const videos = await VideosData()
+        //map
+        const dataMap = await Promise.all(
+            await FilterData.map((e) => {
+                const {_id,Title,Views,VdFile,VdType,ImgFile,ImgType} = e
 
-            //filtervideo by Profileok
-            const {PrName} = profileOk
+                //decodedVIDEO
+                const videDeco = VdFile.toString('base64');
+                //path
+                const videoPath = `data:${VdType};base64,${videDeco}`;
 
-            //filter
-            const FilterData = videos.filter((e) => e.PrName ===  PrName);
-            if(!FilterData || FilterData.length < 0){
-                return res.status(203).json({msg : 'Videos Doenst Exist'})
-            }
+                //decodedPoster
+                const ImgDeco = ImgFile.toString('base64');
+                //path
+                const ImgPath = `data:${ImgType};base64,${ImgDeco}`
 
-            //map
-            const dataMap = await Promise.all(
-                await FilterData.map((e) => {
-                    const {_id,Title,Views,VdFile,VdType,ImgFile,ImgType} = e
+                return {_id,Title,Views,videoPath,ImgPath}
+            })
+        )
+        
+        if(!dataMap){
+            return res.status(401).json({msg : 'Not Authorization'})
+        }
 
-                    //decodedVIDEO
-                    const videDeco = VdFile.toString('base64');
-                    //path
-                    const videoPath = `data:${VdType};base64,${videDeco}`;
-    
-                    //decodedPoster
-                    const ImgDeco = ImgFile.toString('base64');
-                    //path
-                    const ImgPath = `data:${ImgType};base64,${ImgDeco}`
-    
-                    return {_id,Title,Views,videoPath,ImgPath}
-                })
-            )
-            
-            if(!dataMap){
-                return res.status(401).json({msg : 'Not Authorization'})
-            }
-
-            res.status(200).json({msg : 'Success', data:dataMap})
-            
-        })
+        res.status(200).json({msg : 'Success', data:dataMap})
     }catch(error){
         res.status(500).json({msg: 'Internal Server Error'})
     }
