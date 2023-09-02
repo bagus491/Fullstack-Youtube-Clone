@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { Spinner,Container } from "react-bootstrap"
-import { CheckProfile,GetProfile } from "../../utils/ProfileFetch"
+import { Spinner,Container, Button } from "react-bootstrap"
+import { CheckProfile,GetProfile,CheckSub,doSub,doUnSub } from "../../utils/ProfileFetch"
 import { useNavigate, useParams } from "react-router-dom"
 
 export const ProfileCompo = () => {
     const [getSpinner , setgetSpinner] = useState(false)
     const [dataProfile, setdataProfile] = useState()
+    const [hideSubs, sethideSubs] = useState()
+    const [hidebutton,sethidebutton] = useState(true)
     const Navigate = useNavigate()
     const {PrName} = useParams()
 
@@ -40,12 +42,88 @@ export const ProfileCompo = () => {
                     }
                 }
                 getFetchProfile()
+
+                //jikasuccess sampai sini ccksub
+                const getFetchSubs = async() => {
+                    try{
+                        const responeSubs = await CheckSub(PrName)
+                        // const jsonSubs = await responeSubs.json()
+                        if(responeSubs.status === 401){
+                            sethideSubs(true)
+                            return false;
+                        }
+
+                        if(responeSubs.status === 404){
+                            console.error({msg :'error'})
+                            return false;
+                        }
+
+                        if(responeSubs.status === 203){
+                            sethideSubs(true)
+                            sethidebutton(true)
+                            return false;
+                        }
+
+                        if(responeSubs.status === 204){
+                            sethideSubs(false);
+                            return false;
+                        }
+                       //jika success artinya udah subscribe
+                       sethideSubs(true)
+                       sethidebutton(false)
+                    }catch(error){
+                        console.error(error)
+                    }
+                }
+                getFetchSubs()
             }catch(error){
                 console.error(error)
             }
         }
         FetchProfile()
     },[Navigate,PrName])
+
+    const handledoSubs = async() => {
+        try{
+            const respone = await doSub(PrName)
+            if(respone.status === 401){
+                //karena dia belom login
+                Navigate('/login')
+            }
+
+            if(respone.status === 404){
+                //tidak ada profile
+                Navigate('*')
+            }
+
+            const json = await respone.json()
+            alert(json.msg)
+            document.location.reload()
+        }catch(error){
+            console.error(error)
+        }
+    }
+
+    const handledoUnsub = async() => {
+        try{
+            const respone = await doUnSub(PrName)
+            if(respone.status === 401){
+                //karena dia belom login
+                Navigate('/login')
+            }
+
+            if(respone.status === 404){
+                //tidak ada profile
+                Navigate('*')
+            }
+
+            const json = await respone.json()
+            alert(json.msg)
+            document.location.reload()
+        }catch(error){
+            console.error(error)
+        }
+    }
     return(
         <>
     	{
@@ -62,6 +140,19 @@ export const ProfileCompo = () => {
                     <h6>{dataProfile.PrName}</h6>
                     <p>Subs:{dataProfile.Subs}</p>
                     <p>{dataProfile.Desc}</p>
+                    {
+                        hideSubs ?    
+                        <div>
+                            {
+                                hidebutton ?     
+                                <Button onClick={() => handledoSubs()}>Subscribe</Button>
+                                :
+                                <Button onClick={() => handledoUnsub()}>UnSubscribe</Button>
+                            }
+                        </div>
+                        :
+                        <p></p>
+                    }
                     </div>
                 </div>
     		</div>

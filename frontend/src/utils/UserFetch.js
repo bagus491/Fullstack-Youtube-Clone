@@ -80,3 +80,20 @@ export const doLogout = async () => {
         console.error(error)
     }
 }
+
+
+//search
+export const doSearch = async(search) =>{
+    try{
+        const formData = new URLSearchParams()
+            formData.append('q',search)
+        const respone = await fetch('http://localhost:5000/search', {
+            method:'post',
+            body:formData,
+            credentials:'include'
+        })
+        return respone;
+    }catch(error){
+        console.error(error)
+    }
+}

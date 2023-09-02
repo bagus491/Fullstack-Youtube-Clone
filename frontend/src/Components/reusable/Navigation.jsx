@@ -5,11 +5,12 @@ import {BsFillGrid3X2GapFill as ForButton ,BsCameraVideoFill as Logo, BsFillCaps
 } from 'react-icons/bs'
 
 import {Button,Form} from 'react-bootstrap'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import {Container,Spinner} from 'react-bootstrap'
-import { doLogout } from "../../utils/UserFetch"
+import { doLogout,doSearch } from "../../utils/UserFetch"
 
 import { CheckProfile } from "../../utils/ProfileFetch"
+
 
 export const Navigation = ({cheked}) => {
     const [Check, setCheck] = useState(false)
@@ -18,6 +19,7 @@ export const Navigation = ({cheked}) => {
     const [openNotif,setopenNotif] = useState(false)
     const [SpinnerP , setSpinnerP] = useState(false)
     const [dataProfile, setdataProfile] = useState()
+    const [search , setsearch] = useState('')
     const Navigate = useNavigate()
     const CheckNavbar = cheked
     useEffect(() => {
@@ -99,6 +101,19 @@ export const Navigation = ({cheked}) => {
       }
     }
 
+    const handleSearch = async (e) => {
+      e.preventDefault()
+      try{
+        const respone = await doSearch(search)
+        const json = await respone.json()
+        
+        return json.Datas
+      }catch(error){
+        console.error(error)
+      }
+    }
+
+    
 
     return(
         <>
@@ -151,16 +166,18 @@ export const Navigation = ({cheked}) => {
             {/* search */}
               <div className="search-side">
 
-            <Form className="d-flex" style={{marginTop: '10px', flexDirection: 'column'}}>
+            <form className="d-flex" style={{marginTop: '10px', flexDirection: 'column'}} >
             <Form.Control
-              type="search"
+              type="text"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              name="search"
+              onChange={(e) => setsearch(e.target.value)}
             />
             <br></br>
-            <Button variant="outline-primary">Search</Button>
-          </Form>
+            <Button  variant="outline-primary">Search</Button>
+          </form>
                </div>
             </div>
 
@@ -204,8 +221,11 @@ export const Navigation = ({cheked}) => {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              name="search"
+              onChange={(e) => setsearch(e.target.value)}
             />
-            <Button variant="outline-primary">Search</Button>
+            <br></br>
+            <Button  variant="outline-primary" type="submit">Search</Button>
           </Form>
                </div>
                {

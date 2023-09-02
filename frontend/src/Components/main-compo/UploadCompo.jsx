@@ -27,7 +27,7 @@ export const UploadCompo = () => {
 
             const json  = await respone.json()
             alert(json.msg)
-            Navigate('/dasbord')
+            Navigate('/')
         }catch(error){
             console.error(error)
         }

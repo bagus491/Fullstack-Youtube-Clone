@@ -4,7 +4,7 @@ const app = express()
 const Auth = require('../Auth/Auth')
 
 //users Controller 
-const {HomeWeb} = require('../Controllers/UserController')
+const {HomeWeb, SearchVideo} = require('../Controllers/UserController')
 
 //profile
 const {doAddProfile,ProfileGet,doDeleteProfile,doUpdateProfile,doSubs,CheckSubs,doUnSubs,CheckProfile} = require('../Controllers/ProfileController')
@@ -57,6 +57,8 @@ app.post('/dasbord/upload',Upload.fields([{name: 'Video'},{name:'Poster'}]),doAd
 app.get('/watch/:id',watchVideo)
 //delete video
 app.delete('/dasbord/video/:id',doDeleteVideo)
+//search
+app.post('/search',SearchVideo)
 
 
 //checksubs

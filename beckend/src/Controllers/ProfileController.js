@@ -280,11 +280,11 @@ const doSubs = async(req,res) => {
             //profileOk
             const ProfileOk = await getProfile(req.params.PrName)
             if(!ProfileOk){
-                return res.status(203).json({msg : 'Not Authorization'})
+                return res.status(404).json({msg : 'Not Authorization'})
             }
 
             if(ProfileOk.username != decodedUser){
-                const {Subs} = ProfileOk
+                const {PrName,Subs} = ProfileOk
 
                 let CSubs = parseInt(Subs)
     
@@ -300,11 +300,14 @@ const doSubs = async(req,res) => {
 
                 //updatesubscribe
                 const newSubscriber = await addSubs(decodedUser,PrName)
-                if(!newSubscriber){
+
+                //saved
+                const saveNewSub = await newSubscriber.save()
+                if(!saveNewSub){
                     return res.status(401).json({msg : 'Not Authorization'})
                 }
     
-                res.status(203).json({msg : 'Success'})
+                res.status(201).json({msg : 'Success'})
             }
 
           
@@ -337,11 +340,13 @@ const CheckSubs = async(req,res) => {
             //profileOk
             const ProfileOk = await getProfile(req.params.PrName)
             if(!ProfileOk){
-                return res.status(203).json({msg : 'Not Authorization'})
+                return res.status(404).json({msg : 'Not Authorization'})
             }
 
-            if(ProfileOk.username != decodedUser){
-                //checkSubs
+            if(ProfileOk.username === decodedUser){
+                return res.status(204).json({msg : 'Not Authorization'})
+            }else{
+                    //checkSubs
                    //array subscribe
                    const arraySubs = await getSubs()
 
@@ -357,7 +362,7 @@ const CheckSubs = async(req,res) => {
                        return res.status(203).json({msg : 'Not Subs'})
                    }
             }
-
+             //jika lolos sampai sini berarti dia udah subscribce
              res.status(200).json({msg : 'Success'})
 
         })
@@ -389,11 +394,11 @@ const doUnSubs = async(req,res) => {
             //profileOk
             const ProfileOk = await getProfile(req.params.PrName)
             if(!ProfileOk){
-                return res.status(203).json({msg : 'Not Authorization'})
+                return res.status(404).json({msg : 'Not Authorization'})
             }
 
             if(ProfileOk.username != decodedUser){
-                const {Subs} = ProfileOk
+                const {PrName,Subs} = ProfileOk
 
                 let CSubs = parseInt(Subs)
     
