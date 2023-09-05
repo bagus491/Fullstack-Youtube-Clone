@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getVideoUpload,doDeleteVideo } from "../../utils/VideoFetch"
+import { getVideoUpload,doDeleteVideo,VideoSetting } from "../../utils/VideoFetch"
 import {Card,Button,Spinner,Container} from 'react-bootstrap'
 
-export const Videolist = () => {
+export const Videolist = ({SettingCheck = false}) => {
     const [getSpinner, setgetSpinner] = useState(false)
     const [Datas , setDatas] = useState() 
     const Navigate = useNavigate()
@@ -30,27 +30,50 @@ export const Videolist = () => {
     }
 
     useEffect(() => {
-        const Fetch = async () => {
-            try{
-                const respone = await getVideoUpload(PrName)
-                if(!respone.ok){
-                   console.error({msg : 'Not Authorization'});
+        if(SettingCheck){
+            const GetSettingVideo = async () =>{
+                try{
+                    const responeSetting = await VideoSetting()
+                    if(!responeSetting.ok){
+                        Navigate('/login')
+                    }
+    
+                    if(responeSetting.status === 404){
+                        setDatas(false)
+                        return false
+                    }
+    
+                    const jsonSetting = await responeSetting.json()
+                    setDatas(jsonSetting.data)
+                    setgetSpinner(true)
+                }catch(error){
+                    console.error(error)
                 }
-
-                if(respone.status === 404){
-                    setDatas(false)
-                    return false
-                }
-
-                const json = await respone.json()
-                setDatas(json.data)
-                setgetSpinner(true)
-            }catch(error){
-                console.error(error)
             }
+            GetSettingVideo()
+        }else{
+            const Fetch = async () => {
+                try{
+                    const respone = await getVideoUpload(PrName)
+                    if(!respone.ok){
+                       console.error({msg : 'Not Authorization'});
+                    }
+    
+                    if(respone.status === 404){
+                        setDatas(false)
+                        return false
+                    }
+    
+                    const json = await respone.json()
+                    setDatas(json.data)
+                    setgetSpinner(true)
+                }catch(error){
+                    console.error(error)
+                }
+            }
+            Fetch()
         }
-        Fetch()
-    },[Navigate,PrName])
+    },[Navigate,PrName,SettingCheck])
     return(
         <>
             {
@@ -74,6 +97,13 @@ export const Videolist = () => {
                                         <div className="body-flex">
                                       <Button onClick={() => Navigate(`/watch/${e._id}`)} style={{marginRight: '5px',background:'none', border:'none',color:'black', fontWeight: 'bold'}}>{e.Title}</Button>
                                       <Card.Title>Views: {e.Views}</Card.Title>
+                                      {
+                                        SettingCheck ?    
+                                        <Button variant="danger" onClick={()=> handleDelete(e._id)}>Delete</Button>
+                                        :
+
+                                        <p></p>
+                                      }
                                         </div>
                                     </Card.Body>
                                   </Card>

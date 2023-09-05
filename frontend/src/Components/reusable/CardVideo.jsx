@@ -20,8 +20,7 @@ export const CardVideo = () => {
                   const splitsearch = search.split('=')
                   const Word = splitsearch[splitsearch.length - 1];
                   const respone = await doSearch(Word)
-                  const json = await respone.json()
-                console.log(json)
+                  const json = await respone.json()     
                   setDatas(json.Datas)
                   setgetSpinner(true)
                 }catch(error){
@@ -80,6 +79,7 @@ export const CardVideo = () => {
                                       <Button onClick={() => Navigate(`/profile/${e.PrName}`)} style={{marginRight: '5px',background:'none', border:'none',color:'black'}}>{e.PrName}</Button>
             
                                       <Card.Title style={{marginTop:'10px'}}>Views: {e.Views}</Card.Title>
+                        
                                         </div>
                                     </Card.Body>
                                   </Card>

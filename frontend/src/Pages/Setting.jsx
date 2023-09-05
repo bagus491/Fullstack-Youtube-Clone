@@ -5,7 +5,7 @@ import { Container,Spinner } from "react-bootstrap"
 import { CheckDasbord } from "../utils/UserFetch"
 import { Navigation } from "../Components/reusable/Navigation"
 import { CheckProfile } from "../utils/ProfileFetch"
-
+import { Videolist } from "../Components/main-compo/VIdeoList"
 export const SettingPage = () => {
     const {userInfo} = useContext(AuthContext)
     const Navigate = useNavigate()
@@ -41,7 +41,7 @@ export const SettingPage = () => {
                                     Navigate('/dasbord/add')
                                     return false
                                   }
-
+                                
                             }catch(error){
                                 console.error(error)
                             }
@@ -64,7 +64,9 @@ export const SettingPage = () => {
                     Check ? 
                     <div>
                         <Navigation  cheked={Check}/>
-                       
+                        <Container>
+                        <Videolist SettingCheck={Check}/>
+                        </Container>
                     </div>
                     :
 

@@ -141,6 +141,70 @@ const getVideos = async(req,res) => {
     }
 }
 
+//GETVIDEO
+const getVideoSetting = async(req,res) => {
+    try{
+        const token = req.cookies.token || req.headers.authorization
+        if(!token){
+            return res.status(401).json({msg : 'Not Authorization'})
+        }
+
+        jwt.verify(token,secret,async(err,decoded) =>{
+            if(err){
+                return res.status(401).json({msg : 'Not Authorization'})
+            }
+
+            const decodedUser = decoded.username
+
+            const dataOk = await UserOne(decodedUser)
+            if(!dataOk){
+                return res.status(404).json({msg : 'Not Authorization'})
+            }
+
+            const ProfileOk = await getOneProfilebyname(decodedUser)
+            if(!ProfileOk){
+                return res.status(404).json({msg : 'Not Authorization'})
+            }
+
+              //dataVideos
+        const videos = await VideosData()
+
+        //filter
+        const FilterData = videos.filter((e) => e.username === decodedUser);
+        if(!FilterData || FilterData.length < 0){
+            return res.status(404).json({msg : 'Videos Doenst Exist'})
+        }
+
+        //map
+        const dataMap = await Promise.all(
+            await FilterData.map((e) => {
+                const {_id,Title,Views,VdFile,VdType,ImgFile,ImgType} = e
+
+                //decodedVIDEO
+                const videDeco = VdFile.toString('base64');
+                //path
+                const videoPath = `data:${VdType};base64,${videDeco}`;
+
+                //decodedPoster
+                const ImgDeco = ImgFile.toString('base64');
+                //path
+                const ImgPath = `data:${ImgType};base64,${ImgDeco}`
+
+                return {_id,Title,Views,videoPath,ImgPath}
+            })
+        )
+        
+        if(!dataMap){
+            return res.status(401).json({msg : 'Not Authorization'})
+        }
+
+        res.status(200).json({msg : 'Success', data:dataMap})
+        })
+    }catch(error){
+        res.status(500).json({msg:'Internal Server Error'})
+    }
+}
+
 
 //filtervideobyPrNAME
 const getVideoUpload = async(req,res) => {
@@ -440,4 +504,4 @@ const doDeleteVideo = async (req,res) => {
     }
 }
 
-module.exports = {doAddVideo,getVideos,getVideoUpload,watchVideo,doDeleteVideo}
+module.exports = {doAddVideo,getVideos,getVideoUpload,watchVideo,doDeleteVideo,getVideoSetting}

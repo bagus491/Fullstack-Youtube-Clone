@@ -70,3 +70,17 @@ export const doDeleteVideo = async(id) =>{
         console.error(error)
     }
 }
+
+
+//videoseting
+export const VideoSetting = async()=>{
+    try{
+        const respone  = await fetch('http://localhost:5000/dasbord/setting/videos',{
+            method: 'GET',
+            credentials: 'include'
+        })
+        return respone
+    }catch(error){
+        console.error(error)
+    }
+}

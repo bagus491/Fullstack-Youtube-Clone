@@ -10,7 +10,7 @@ const {HomeWeb, SearchVideo} = require('../Controllers/UserController')
 const {doAddProfile,ProfileGet,doDeleteProfile,doUpdateProfile,doSubs,CheckSubs,doUnSubs,CheckProfile} = require('../Controllers/ProfileController')
 
 //videos
-const {doAddVideo,getVideos,getVideoUpload,watchVideo,doDeleteVideo} = require('../Controllers/VideoController')
+const {doAddVideo,getVideos,getVideoUpload,watchVideo,doDeleteVideo, getVideoSetting} = require('../Controllers/VideoController')
 
 
 //verify
@@ -52,6 +52,8 @@ app.get('/videos',getVideos)
 app.get('/dasbord/videos/:PrName',getVideoUpload)
 //post
 app.post('/dasbord/upload',Upload.fields([{name: 'Video'},{name:'Poster'}]),doAddVideo)
+//settingvideo
+app.get('/dasbord/setting/videos',getVideoSetting)
 //watch
 //changes
 app.get('/watch/:id',watchVideo)
