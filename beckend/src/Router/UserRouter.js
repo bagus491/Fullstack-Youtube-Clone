@@ -58,7 +58,7 @@ app.get('/watch/:id',watchVideo)
 //delete video
 app.delete('/dasbord/video/:id',doDeleteVideo)
 //search
-app.post('/search',SearchVideo)
+app.get('/search',SearchVideo)
 
 
 //checksubs

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getVideoUpload,doDeleteVideo } from "../../utils/VideoFetch"
 import {Card,Button,Spinner,Container} from 'react-bootstrap'
 
-export const Videolist = ({checkbutton}) => {
+export const Videolist = () => {
     const [getSpinner, setgetSpinner] = useState(false)
     const [Datas , setDatas] = useState() 
     const Navigate = useNavigate()
@@ -74,12 +74,6 @@ export const Videolist = ({checkbutton}) => {
                                         <div className="body-flex">
                                       <Button onClick={() => Navigate(`/watch/${e._id}`)} style={{marginRight: '5px',background:'none', border:'none',color:'black', fontWeight: 'bold'}}>{e.Title}</Button>
                                       <Card.Title>Views: {e.Views}</Card.Title>
-                                      {
-                                        checkbutton ?   
-                                        <Button variant="danger" style={{marginLeft: '3px'}} onClick={() => handleDelete(e._id)}>Delete</Button>
-                                        :
-                                        <p></p>
-                                      }
                                         </div>
                                     </Card.Body>
                                   </Card>

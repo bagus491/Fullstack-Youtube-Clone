@@ -50,7 +50,9 @@ const CheckToken = (req,res) => {
             if(decodedUser !== dataOk.username){
                 return res.status(401).json({msg : 'Not Authorization'})
             }
-            res.status(200).json({msg : 'Success'})
+
+            return res.status(200).json({msg : 'Success'})
+            
         })
     }catch(error){
         res.status(500).json({msg : 'Internal Server Error'})

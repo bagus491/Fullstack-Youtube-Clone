@@ -25,10 +25,10 @@ export const ProfilePage = () => {
                     setCheck(false)
                   }
 
-
                     if(respone.status === 200){
                           //jika true
                           setCheck(true);
+                        
                         const FetchProfile = async() => {
                             try{
                               const respone = await CheckProfile()
@@ -36,13 +36,15 @@ export const ProfilePage = () => {
                                 Navigate('/dasbord/add')
                                 return false
                               }
-                              
+                                
+
                             
                             }catch(error){
                               console.error(error)
                             }
                           }
                           FetchProfile()
+                          
                     }
                 }catch(error){
                     console.error(error)
@@ -63,7 +65,7 @@ export const ProfilePage = () => {
                     <ProfileCompo />
                     </div>
                     <div className="List-Upload">
-                       <Videolist  checkbutton={Check}/>
+                       <Videolist />
                     </div>
                     </Container>
                 </div>

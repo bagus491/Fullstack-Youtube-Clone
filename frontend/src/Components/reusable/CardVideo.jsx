@@ -1,38 +1,58 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { getVideos } from "../../utils/VideoFetch"
 import {Card,Button,Spinner,Container} from 'react-bootstrap'
+import { doSearch } from "../../utils/UserFetch"
 
 export const CardVideo = () => {
     const [getSpinner, setgetSpinner] = useState(false)
     const [Datas , setDatas] = useState() 
     const Navigate = useNavigate()
     const {PrName} = useParams()
+    const {search} = useLocation()
 
-    
 
     useEffect(() => {
-        const Fetch = async () => {
-            try{
-                const respone = await getVideos()
-                if(!respone.ok){
-                   console.error({msg : 'Not Authorization'});
+        if(search){
+            const handleSearch = async () => {
+                try{
+                  //split
+                  const splitsearch = search.split('=')
+                  const Word = splitsearch[splitsearch.length - 1];
+                  const respone = await doSearch(Word)
+                  const json = await respone.json()
+                console.log(json)
+                  setDatas(json.Datas)
+                  setgetSpinner(true)
+                }catch(error){
+                  console.error(error)
                 }
-
-                if(respone.status === 401){
-                    setDatas(false)
-                    return false
+              }
+          handleSearch()
+        }else{
+            const Fetch = async () => {
+                try{
+                    const respone = await getVideos()
+                    if(!respone.ok){
+                       console.error({msg : 'Not Authorization'});
+                    }
+    
+                    if(respone.status === 401){
+                        setDatas(false)
+                        return false
+                    }
+    
+                    const json = await respone.json()
+                    setDatas(json.data)
+                    setgetSpinner(true)
+                }catch(error){
+                    console.error(error)
                 }
-
-                const json = await respone.json()
-                setDatas(json.data)
-                setgetSpinner(true)
-            }catch(error){
-                console.error(error)
             }
+            Fetch()
         }
-        Fetch()
-    },[Navigate,PrName])
+      
+    },[Navigate,PrName,search])
     return(
         <>
             {

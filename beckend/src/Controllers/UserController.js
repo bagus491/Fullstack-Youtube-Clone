@@ -16,7 +16,7 @@ const HomeWeb = (req,res) => {
 const SearchVideo =  async(req,res) => {
     try{
         //get Query
-        const {q} = req.body
+        const {q} = req.query
 
         //videodatas
         const Videos = await VideosData()

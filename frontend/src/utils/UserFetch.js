@@ -85,11 +85,8 @@ export const doLogout = async () => {
 //search
 export const doSearch = async(search) =>{
     try{
-        const formData = new URLSearchParams()
-            formData.append('q',search)
-        const respone = await fetch('http://localhost:5000/search', {
-            method:'post',
-            body:formData,
+        const respone = await fetch(`http://localhost:5000/search?q=${search}`, {
+            method:'get',
             credentials:'include'
         })
         return respone;
